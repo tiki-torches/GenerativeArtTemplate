@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { TDObjectPanel } from "../Organisms/TDObjectPanel"
-import { WorkViewerPanel } from "../Organisms/WorkViewerPanel"
+import { PlaybackScreen } from "../Molecules/PlaybackScreen"
 
+/**
+ * Outline	: XXXするComponent
+ * Logic		: - AAAをBBBにする
+ *            - 親ComponentからCCCを受け取り、DDDとしたものを子Componentに渡す
+ * View			: - KKKをリスト表示する
+ */
+
+// Type Declaration of Props
 type Props = {
   sampleProp ?: any;
 }
 
-export const EditorPage : React.FC <Props> = ({ sampleProp }) => {
+export const WorkViewerPanel : React.FC<Props> = ({ sampleProp }) => {
 
   // ___ state ___ ___ ___ ___ ___
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
@@ -16,6 +23,8 @@ export const EditorPage : React.FC <Props> = ({ sampleProp }) => {
 
   // ___ event handler ___ ___ ___ ___ ___
   const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value
+    setSampleState(newValue);
   };
 
   // ___ method ___ ___ ___ ___ ___
@@ -25,14 +34,10 @@ export const EditorPage : React.FC <Props> = ({ sampleProp }) => {
 
   return (
     <div>
-      <h2>{ EditorPage.name }</h2>
-
-      <TDObjectPanel />
-
-      <WorkViewerPanel />
-
+      <h2>{ WorkViewerPanel.name }</h2>
+      <PlaybackScreen/>
     </div>
   );
 };
 
-export default EditorPage
+export default WorkViewerPanel
