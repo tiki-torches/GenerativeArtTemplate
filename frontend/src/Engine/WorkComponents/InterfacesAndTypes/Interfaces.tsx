@@ -48,6 +48,14 @@ export interface TDModelInterface{
    */
   calcPropEffectsApplied(property: TDModelProperty, effectsList: Array<EffectInterface>): TDModelProperty;
 
+
+  /**
+   * 実際にレンダリングの対象となる3Dモデルデータの表示情報（位置・色など）を更新するメソッド
+   * @param tdObject 
+   * @param property 
+   */
+  updateTDObject(tdObject: any, property: TDModelProperty): void;
+
 }
 
 
@@ -68,15 +76,16 @@ export interface WorkPlayerInterface{
   canvas    : HTMLCanvasElement;
 
   // 作品の再生状況の管理用プロパティ
-  tdModelMemo : TDModelInterface | undefined;
-  reqAnmID    : number;     // アニメーションの実行回数（実行フレーム数）を保持するプロパティ
-  isPlaying   : Boolean;
+  tdModelsMemo  : Array<TDModelInterface> | undefined;
+  reqAnmID      : number;     // アニメーションの実行回数（実行フレーム数）を保持するプロパティ
+  isPlaying     : Boolean;
 
   /**
    * 作品の再生を開始（再開）するメソッド
+   * 注意: tdModelは不可逆的な変更を加えられる 変更前のtdModelが必要な場合はtdModelの生成素であるJSONから生成すること
    * @param tdModel 
    */
-  play(tdModel: TDModelInterface): void;
+  play(tdModels: Array<TDModelInterface>): void;
 
   /**
    * 作品の再生を停止（中断）するメソッド

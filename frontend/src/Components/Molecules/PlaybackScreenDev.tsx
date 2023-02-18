@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { WorkPlayerInterface } from "../../Engine/WorkComponents/InterfacesAndTypes/Interfaces";
 import WorkPlayerForRAW from "../../Engine/WorkComponents/WorkPlayer/WorkPlayerForRAW";
-import TDModelFactory from "../../Engine/Utils/Factories/TDModelFactory";
+import TDModelForRAWFactory from "../../Engine/Utils/Factories/TDModelForRAWFactory";
 
 /**
  * Outline	: XXXするComponent
@@ -24,7 +24,6 @@ export const PlaybackScreenDev : React.FC<Props> = ({ sampleProp }) => {
 
 
   // ___ use effect ___ ___ ___ ___ ___
-  // useEffect( () => { console.log(sampleState) }, [ sampleState ] );
   useEffect( () => { construct() }, [ ] );  // 初回レンダー時のみ実行 useEffectに空配列を渡すことで初回のみに限定できる
   // useEffect( () => { play() }, [] );     // 描画処理はdidMount後の実行でなければ、null参照エラー（Cannot read property 'width' of null）が発生する
   
@@ -44,8 +43,8 @@ export const PlaybackScreenDev : React.FC<Props> = ({ sampleProp }) => {
   }
 
   const play = () => {
-    const sample = TDModelFactory.createSample();
-    workPlayer?.play(sample);
+    const sample = TDModelForRAWFactory.generateSample();
+    workPlayer?.play([sample]);
     let intervalID = setInterval(update, 1000);
     setIntervalID(intervalID);
   };
@@ -56,11 +55,9 @@ export const PlaybackScreenDev : React.FC<Props> = ({ sampleProp }) => {
   }
 
   const update = () => {
-    workPlayer?.tdModelMemo?
+    workPlayer?.tdModelsMemo?
 
-      setSampleState(JSON.stringify(workPlayer?.tdModelMemo))
-      :
-      setSampleState("undefined");
+      setSampleState(JSON.stringify(workPlayer?.tdModelsMemo)) : setSampleState("undefined");
 
   }
 

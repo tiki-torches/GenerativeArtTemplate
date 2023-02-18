@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import * as THREE from 'three';
+import TDModelForTHREEFactory from "../../Engine/Utils/Factories/TDModelForTHREEFactory";
+import { WorkPlayerInterface } from "../../Engine/WorkComponents/InterfacesAndTypes/Interfaces";
+import WorkPlayerForTHREE from "../../Engine/WorkComponents/WorkPlayer/WorkPlayerForTHREE";
 
 /**
  * Outline	: XXXするComponent
@@ -16,11 +18,10 @@ type Props = {
 export const PlaybackScreen : React.FC<Props> = ({ sampleProp }) => {
 
   // ___ state ___ ___ ___ ___ ___
-  const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
+  const [ workPlayer, setWorkPlayer ] = useState<WorkPlayerForTHREE>();
 
   // ___ use effect ___ ___ ___ ___ ___
-  useEffect( () => { console.log(sampleState) }, [ sampleState ] );
-  useEffect( () => { render() }, [] );   // 描画処理はdidMount後の実行でなければ、null参照エラー（Cannot read property 'width' of null）が発生する
+  useEffect( () => { construct }, [ ] );    // 初回レンダー時のみ実行 useEffectに空配列を渡すことで初回のみに限定できる
   
   // ___ event handler ___ ___ ___ ___ ___
   const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
@@ -31,44 +32,33 @@ export const PlaybackScreen : React.FC<Props> = ({ sampleProp }) => {
     console.log('test');
   }
 
-  const render = () => {
-    
-    const tick = () => {
-      box.rotation.y += 0.01;
-      renderer.render(scene, camera);
-      requestAnimationFrame(tick);
-    }
+  const construct = () => {
+    const canvas: HTMLCanvasElement = document.querySelector("#canvas") as HTMLCanvasElement;
+    const workPlayer = new WorkPlayerForTHREE(canvas);
+    setWorkPlayer(workPlayer);
+  }
 
-    const width = 960;
-    const height = 540;
-
-    const renderer: any = new THREE.WebGLRenderer({
-      canvas: document.querySelector("#canvas") as HTMLCanvasElement
-    });
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(width, height);
-
-    const scene = new THREE.Scene();
-
-    const camera = new THREE.PerspectiveCamera(45, width / height);
-    camera.position.set(0, 0, +1000);
-
-    const geometry = new THREE.BoxGeometry(400, 400, 400);
-    const material = new THREE.MeshNormalMaterial();
-    const box = new THREE.Mesh(geometry, material);
-    scene.add(box);
-
-    tick();
-
+  const play = () => {
+    const sample = TDModelForTHREEFactory.generateSample();
+    workPlayer?.play([sample]);
   };
+
+  const stop = () => {
+    workPlayer?.stop();
+  }
 
   return (
     <div>
       <h2>{ PlaybackScreen.name }</h2>
-      <canvas id='canvas' />
+      <canvas id = 'canvas'/>
+      <button onClick = { construct }>CONSTRUCT</button>
+      <button onClick = { play }>PLAY</button>
+      <button onClick = { stop }>STOP</button>
     </div>
   );
   
 };
+
+
 
 export default PlaybackScreen

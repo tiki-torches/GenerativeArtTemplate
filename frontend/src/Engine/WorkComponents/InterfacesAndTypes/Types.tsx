@@ -1,6 +1,6 @@
 // Effect
 export type EffectType      = "ROLL" | "MOVE";
-export type EffectParameter = any;
+export type EffectParameter = { x: number, y: number, z: number };
 
 // TDModel
 export type TDModelType = "CUBE" | "BALL";

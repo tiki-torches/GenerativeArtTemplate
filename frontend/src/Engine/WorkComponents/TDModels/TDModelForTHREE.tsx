@@ -1,21 +1,21 @@
+import * as THREE from 'three';
 import { TDModelInterface } from "../InterfacesAndTypes/Interfaces";
 import { EffectInterface } from "../InterfacesAndTypes/Interfaces";
 import { TDModelType } from "../InterfacesAndTypes/Types";
 import TDModelProperty from "./TDModelProperty";
 
-
 /**
  * 基本的なTDModel
  * 各種レンダリングライブラリ向けに変換する素として使用する
  */
-class TDModelForRAW implements TDModelInterface{
+class TDModelForTHREE implements TDModelInterface{
 
   // メタデータ
   uid       : number;
   type      : TDModelType;
 
   // 実際にレンダリングの対象となる3Dモデルデータ
-  tdObject: any;
+  tdObject: THREE.Mesh;
 
   // 3Dモデルの状態（表示位置・色・移動速度 など）を示す情報
   property: TDModelProperty;
@@ -23,10 +23,10 @@ class TDModelForRAW implements TDModelInterface{
   // 適用するEffectの一覧
   effectsList: Array<EffectInterface>;
 
-  constructor(uid: number, type: TDModelType){
+  constructor(uid: number, type: TDModelType, tdObject: THREE.Mesh){
     this.uid  = uid;
     this.type = type;
-    this.tdObject     = undefined;    // RAW形式はレンダリングを行わないため、3Dモデルデータは不要
+    this.tdObject     = tdObject;
     this.property     = new TDModelProperty;
     this.effectsList  = [];
   }
@@ -44,16 +44,20 @@ class TDModelForRAW implements TDModelInterface{
     return calcuatedProp
   }
 
-    /**
+  /**
    * 実際にレンダリングの対象となる3Dモデルデータの表示情報（位置・色など）を更新するメソッド
    * @param tdObject 
    * @param property 
    */
-    updateTDObject(tdObject: any, property: TDModelProperty): void{
-      // do nothing
-    }
+  updateTDObject(tdObject: any, property: TDModelProperty): void{
+    // 回転
+    tdObject.rotation.y += property.rotation.x;
+    // サイズ
+    // 色
+    // 位置
+  }
 
 }
 
 
-export default TDModelForRAW
+export default TDModelForTHREE

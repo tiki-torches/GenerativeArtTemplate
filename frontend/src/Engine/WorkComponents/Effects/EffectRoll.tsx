@@ -16,8 +16,9 @@ class EffectRoll implements EffectInterface{
   // Effect適用時に用いるパラメータ
   parameter  : EffectParameter;
 
-  constructor(uid: number){
+  constructor(uid: number, parameter: EffectParameter){
     this.uid = uid;
+    this.parameter = parameter;
   }
 
   
@@ -26,9 +27,9 @@ class EffectRoll implements EffectInterface{
    * @param property
    * @param parameter
    */
-  calc(property: TDModelProperty, parameter: any): TDModelProperty{
+  calc(property: TDModelProperty, parameter: EffectParameter): TDModelProperty{
     const calcuatedProp: TDModelProperty = { ...property };
-    calcuatedProp.rotation.x = calcuatedProp.rotation.x + 10;
+    calcuatedProp.rotation.x = parameter.x;
     return calcuatedProp
   }
 

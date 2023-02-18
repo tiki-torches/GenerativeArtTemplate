@@ -37,8 +37,9 @@ export const WorkViewerPanel : React.FC<Props> = ({ sampleProp }) => {
   return (
     <div>
       <h2>{ WorkViewerPanel.name }</h2>
-      <PlaybackScreenDev/>
       <PlaybackScreen/>
+      {/** <PlaybackScreenDev/> **/}
+
     </div>
   );
 };
