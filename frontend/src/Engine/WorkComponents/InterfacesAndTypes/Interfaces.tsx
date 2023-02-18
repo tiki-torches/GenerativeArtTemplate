@@ -1,28 +1,32 @@
 import { EffectType } from "./Types";
 import { EffectParameter } from "./Types";
-import { TDModelProperty } from "./Types";
 import { TDModelType } from "./Types";
 import TDModelForRAW from "../TDModels/TDModelForRAW";
+import TDModelProperty from "../TDModels/TDModelProperty";
 
 
-export interface EffectInterface {
+export interface EffectInterface{
 
-  uid        : number;
-  type       : EffectType;
+  // メタデータ
+  uid     : number;
+  type    : EffectType;
+  priority: number;       // Effectの適用順位（値が大きいほど優先度が高い）
+  // !!! TODO: priorityの設定はグローバル管理に変更すること !!!
 
+  // Effect適用時に用いるパラメータ
   parameter  : EffectParameter;
 
   /**
-   * Effect適用後のpropertyを算出し返すメソッド
+   * Effect適用後のpropertyを算出し、結果を返すメソッド
    * @param property
    * @param parameter
    */
-  calculate(property: TDModelProperty, parameter: any): any;
+  calc(property: TDModelProperty, parameter: any): TDModelProperty;
 
 }
 
 
-export interface TDModelInterface {
+export interface TDModelInterface{
 
   // メタデータ
   uid       : number;
@@ -38,20 +42,45 @@ export interface TDModelInterface {
   effectsList: Array<EffectInterface>
 
   /**
-   * Effectを適用した後のPropertyを算出するメソッド
+   * Effectすべてを適用した後のPropertyを算出し、結果を返すメソッド
+   * ※ 本メソッドはTDModelのPropertyを更新しない 更新する場合は外部で更新処理を行う必要がある
    * @param property 
    */
-  calcPropEffectApplied(property: TDModelProperty): TDModelProperty;
+  calcPropEffectsApplied(property: TDModelProperty, effectsList: Array<EffectInterface>): TDModelProperty;
 
 }
 
 
-export interface TDModelConverter {
+export interface TDModelConverter{
 
   /**
    * RAW形式の3DModelをもとに、各種レンダリングライブラリ用の3DModelを生成（変換）する処理
    * @param tdModelForRAW 
    */
   convert(tdModelForRAW: TDModelForRAW): TDModelInterface;
+
+}
+
+
+export interface WorkPlayerInterface{
+
+  // 作品を描画するエリアとなるHTMLcanvas要素
+  canvas    : HTMLCanvasElement;
+
+  // 作品の再生状況の管理用プロパティ
+  tdModelMemo : TDModelInterface | undefined;
+  reqAnmID    : number;     // アニメーションの実行回数（実行フレーム数）を保持するプロパティ
+  isPlaying   : Boolean;
+
+  /**
+   * 作品の再生を開始（再開）するメソッド
+   * @param tdModel 
+   */
+  play(tdModel: TDModelInterface): void;
+
+  /**
+   * 作品の再生を停止（中断）するメソッド
+   */
+  stop(): void;
 
 }

@@ -4,4 +4,8 @@ export type EffectParameter = any;
 
 // TDModel
 export type TDModelType = "CUBE" | "BALL";
-export type TDModelProperty = any;
+
+// General
+export type Vector      = { x: number, y: number, z: number }
+export type Coordinate  = { x: number, y: number, z: number }
+export type Color       = { r: number, g: number, b: number }
