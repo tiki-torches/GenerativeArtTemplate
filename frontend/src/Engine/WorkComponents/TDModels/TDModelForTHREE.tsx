@@ -51,7 +51,9 @@ class TDModelForTHREE implements TDModelInterface{
    */
   updateTDObject(tdObject: any, property: TDModelProperty): void{
     // 回転
-    tdObject.rotation.y += property.rotation.x;
+    tdObject.rotation.x += property.rotation.x;
+    tdObject.rotation.y += property.rotation.y;
+    tdObject.rotation.z += property.rotation.z;
     // サイズ
     // 色
     // 位置

@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { WorkPlayerInterface } from "../InterfacesAndTypes/Interfaces";
 import TDModelForTHREE from "../TDModels/TDModelForTHREE";
-import TDModelProperty from "../TDModels/TDModelProperty";
 
 /**
  * 基本的なTDModel
@@ -20,11 +19,12 @@ class WorkPlayerForTHREE implements WorkPlayerInterface{
   // THREE用
   width = 960;
   height = 540;
-  renderer: THREE.WebGLRenderer | undefined = undefined;
-  scene: THREE.Scene | undefined = undefined;
-  camera: THREE.PerspectiveCamera | undefined = undefined
+  renderer  : THREE.WebGLRenderer;
+  scene     : THREE.Scene;
+  camera    : THREE.PerspectiveCamera;
 
   constructor(canvas: HTMLCanvasElement){
+
     this.tdModelsMemo = [];
     this.canvas       = canvas;
     this.reqAnmID     = 0;
@@ -46,10 +46,9 @@ class WorkPlayerForTHREE implements WorkPlayerInterface{
 
   }
 
-
   /**
    * Outline    : 作品の再生を開始（再開）するメソッド
-   * 注意: tdModelは不可逆的な変更を加えられる 変更前のtdModelが必要な場合はtdModel生成素となるJSONから生成すること
+   * 注意: TDModelは不可逆的な変更を加えられる 変更前のTDModelが必要な場合はTDModel生成素となるJSONから生成すること
    * SideEffect : - tdModelMemoを更新する
    *              - reqAnmIDを更新する
    *              - isPlayingフラグを更新する
@@ -57,43 +56,38 @@ class WorkPlayerForTHREE implements WorkPlayerInterface{
    */
   play(tdModels: Array<TDModelForTHREE>): void{
 
-    tdModels.forEach( (tdModel) => {
-      this.scene?.add(tdModel.tdObject);
-    });
+    // 多重再生の防止のため、再生中であるか確認する
+    // 再生中である場合は何もしない
+    if(this.isPlaying === true){
 
-    // ループ処理を定義
-    const tick = () => {
+      // do nothing
 
-      /** TDModelにEffectを適用 */
+    // 再生中でない場合は再生処理を実行する
+    }else{
 
-      tdModels.forEach( (tdModel) => {
-        // Effect適用後のPropを算出し、TDModelに反映
-        const propEffectsApplied = tdModel.calcPropEffectsApplied(tdModel.property, tdModel.effectsList);
-        tdModel.property = propEffectsApplied;
-
-        /** レンダリングを実行 （レンダリングライブラリに3Dオブジェクトの表示状態の変更を伝える） */
-
-        // レンダリング対象の3Dオブジェクトの表示情報（位置・色 など）を更新
-        tdModel.updateTDObject(tdModel.tdObject, tdModel.property);
-      });
-
-      // レンダリングを実行
-      if(this.renderer && this.scene && this.camera){
+      // Sceneを初期化
+      this.initializeScene(this.scene, tdModels);
+  
+      const animate = () => {
+  
+        // TDModelにEffectを適用
+        tdModels.forEach( (tdModel) => { this.applyEffect(tdModel) });
+  
+        // レンダリングを実行
         this.renderer.render(this.scene, this.camera);
+  
+        // 本処理をフレーム更新時に発火するよう登録
+        const reqAnmID = requestAnimationFrame(animate);
+  
+        // SideEffect
+        this.tdModelsMemo = tdModels;
+        this.reqAnmID     = reqAnmID;   // 本処理のアニメーションIDを一時保持
+        this.isPlaying    = true;
+  
       }
-
-      // 本処理をフレーム更新時に発火するよう登録
-      const reqAnmID = requestAnimationFrame(tick);
-
-      /** SideEffect系 */
-      this.tdModelsMemo = tdModels;
-      this.reqAnmID     = reqAnmID;                 // 本処理のアニメーションIDを一時保持
-      this.isPlaying    = true;
-
+      animate();
+  
     }
-
-    // ループ処理をキック
-    tick();
 
   }
 
@@ -102,28 +96,46 @@ class WorkPlayerForTHREE implements WorkPlayerInterface{
    */
   stop(): void{
     cancelAnimationFrame(this.reqAnmID);
+    this.isPlaying = false;
   }
 
-}
-
-
-class THREEHandler{
-
-  renderer: any;
-  camera: any;
-
-  constructor(){
-    this.renderer = undefined;
+  reset(): void{
+    this.tdModelsMemo = [];
+    this.initializeScene(this.scene, []);
+    this.reqAnmID = 0;
+    this.isPlaying = false;
   }
 
-  render(): void{
+  /**
+   * Sceneを初期化する（指定された3Dオブジェクトのみ登録された状態に変更する）メソッド
+   * @param scene 
+   * @param tdModels 
+   */
+  initializeScene(scene: THREE.Scene, tdModels: Array<TDModelForTHREE>): void{
+
+    // Sceneに登録済みの3Dオブジェクトを全て削除
+    scene.children.forEach( (tdObject) => { scene.remove(tdObject) });
+
+    // Sceneに3Dオブジェクトを登録
+    tdModels.forEach( (tdModel) => { scene.add(tdModel.tdObject) });
 
   }
 
-  updateTDObj(): void{
+  /**
+   * TDModelをEffect適用後の状態に更新するメソッド
+   * 注意: TDModelは不可逆的な変更を加えられる
+   * @param tdModel 
+   */
+  applyEffect(tdModel: TDModelForTHREE){
+
+    // Effect適用後のPropを算出し、TDModelに反映
+    const propEffectsApplied  = tdModel.calcPropEffectsApplied(tdModel.property, tdModel.effectsList);
+    tdModel.property          = propEffectsApplied;
+
+    // レンダリング対象の3Dオブジェクトの表示情報（位置・色 など）を更新
+    tdModel.updateTDObject(tdModel.tdObject, tdModel.property);
 
   }
-
 
 }
 
