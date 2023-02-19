@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PlaybackScreen } from "../Molecules/PlaybackScreen"
+import { PlaybackScreenDev } from "../Molecules/PlaybackScreenDev"
+
 
 /**
  * Outline	: XXXするComponent
@@ -36,6 +38,8 @@ export const WorkViewerPanel : React.FC<Props> = ({ sampleProp }) => {
     <div>
       <h2>{ WorkViewerPanel.name }</h2>
       <PlaybackScreen/>
+      {/** <PlaybackScreenDev/> **/}
+
     </div>
   );
 };
