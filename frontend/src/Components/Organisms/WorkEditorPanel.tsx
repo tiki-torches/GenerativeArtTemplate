@@ -12,13 +12,13 @@ type Props = {
   sampleProp ?: any;
 }
 
-export const TDObjectPanel : React.FC<Props> = ({ sampleProp }) => {
+export const WorkEditorPanel : React.FC<Props> = ({ sampleProp }) => {
 
   // ___ state ___ ___ ___ ___ ___
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
 
   // ___ use effect ___ ___ ___ ___ ___
-  useEffect( () => { console.log(sampleState) }, [ sampleState ] );
+  // useEffect( () => { console.log(sampleState) }, [ sampleState ] );
 
   // ___ event handler ___ ___ ___ ___ ___
   const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
@@ -33,10 +33,10 @@ export const TDObjectPanel : React.FC<Props> = ({ sampleProp }) => {
 
   return (
     <div>
-      <h2>{ TDObjectPanel.name }</h2>
+      <h2>{ WorkEditorPanel.name }</h2>
       <h3>3D object list</h3>
     </div>
   );
 };
 
-export default TDObjectPanel
+export default WorkEditorPanel
