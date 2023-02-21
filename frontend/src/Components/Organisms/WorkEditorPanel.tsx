@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import Grid from '@mui/material/Grid';
+import { TDModelUI, WorkModelUI } from "../../Utils/WorkComponentsUI";
+import { TDModelEditor } from "../Molecules/TDModelEditor";
 
 /**
  * Outline	: XXXするComponent
@@ -9,10 +12,11 @@ import React, { useEffect, useState } from "react";
 
 // Type Declaration of Props
 type Props = {
-  sampleProp ?: any;
+  workModel        : WorkModelUI;
+  updateWorkModel  : any;
 }
 
-export const WorkEditorPanel : React.FC<Props> = ({ sampleProp }) => {
+export const WorkEditorPanel: React.FC<Props> = ({ workModel, updateWorkModel }) => {
 
   // ___ state ___ ___ ___ ___ ___
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
@@ -31,10 +35,30 @@ export const WorkEditorPanel : React.FC<Props> = ({ sampleProp }) => {
     console.log('test');
   }
 
+  const onClickCreateButton = () => {
+    // MEMO: オブジェクト内部の更新をReactは検知できないため、オブジェクトを複製しセットすることで再レンダーを促す
+    const clonedWorkModel: WorkModelUI = { ...workModel };
+
+    // TDModelを作成
+    const uid: number         = clonedWorkModel.tdModelsList.length + 1;
+    const tdModel: TDModelUI  = new TDModelUI(uid, "CUBE");
+
+    // WorkModelにTDModelを追加し更新
+    clonedWorkModel.tdModelsList.push(tdModel);
+    updateWorkModel(clonedWorkModel);
+  }
+
   return (
     <div>
-      <h2>{ WorkEditorPanel.name }</h2>
-      <h3>3D object list</h3>
+
+      <Grid item xs = { 12 }>
+        <button onClick = { onClickCreateButton }> ADD SAMPLE TDMODEL</button>
+      </Grid>
+
+      <Grid item xs = { 12 }>
+        { workModel?.tdModelsList.map( (tdModel) => <TDModelEditor key = { 'TDModel' + tdModel.uid } tdModel = { tdModel }/> )}
+      </Grid>
+
     </div>
   );
 };
