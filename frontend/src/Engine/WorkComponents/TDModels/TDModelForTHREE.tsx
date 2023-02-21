@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { TDModelInterface } from "../InterfacesAndTypes/Interfaces";
 import { EffectInterface } from "../InterfacesAndTypes/Interfaces";
-import { TDModelType } from "../../../Utils/Types";
+import { TDModelType } from "../InterfacesAndTypes/Types";
 import TDModelProperty from "./TDModelProperty";
 
 /**
