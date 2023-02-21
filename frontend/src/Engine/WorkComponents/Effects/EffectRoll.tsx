@@ -1,5 +1,5 @@
 import { EffectInterface } from "../InterfacesAndTypes/Interfaces";
-import { EffectParameter, EffectType, TDModelType } from "../InterfacesAndTypes/Types";
+import { EffectParameter, EffectType, TDModelType } from "../../../Utils/Types";
 import TDModelProperty from "../TDModels/TDModelProperty";
 
 

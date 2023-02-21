@@ -1,4 +1,4 @@
-import { Color, Coordinate, Vector } from "../InterfacesAndTypes/Types";
+import { Color, Coordinate, Vector } from "../../../Utils/Types";
 
 
 /**

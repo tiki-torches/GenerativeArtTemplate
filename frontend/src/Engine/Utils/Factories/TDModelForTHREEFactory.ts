@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import TDModelForTHREE from "../../WorkComponents/TDModels/TDModelForTHREE"
-import { TDModelType } from "../../WorkComponents/InterfacesAndTypes/Types";
+import { TDModelType } from "../../../Utils/Types";
 import EffectRoll from '../../../Engine/WorkComponents/Effects/EffectRoll';
 
 

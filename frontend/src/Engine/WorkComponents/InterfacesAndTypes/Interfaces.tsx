@@ -1,6 +1,6 @@
-import { EffectType } from "./Types";
-import { EffectParameter } from "./Types";
-import { TDModelType } from "./Types";
+import { EffectType } from "../../../Utils/Types";
+import { EffectParameter } from "../../../Utils/Types";
+import { TDModelType } from "../../../Utils/Types";
 import TDModelForRAW from "../TDModels/TDModelForRAW";
 import TDModelProperty from "../TDModels/TDModelProperty";
 
