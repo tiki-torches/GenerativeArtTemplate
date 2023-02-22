@@ -27,7 +27,7 @@ class TDModelForTHREE implements TDModelInterface{
     this.uid  = uid;
     this.type = type;
     this.tdObject     = tdObject;
-    this.property     = new TDModelProperty;
+    this.property     = new TDModelProperty();
     this.effectsList  = [];
   }
 

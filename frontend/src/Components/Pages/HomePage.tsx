@@ -10,7 +10,7 @@ export const HomePage : React.FC <Props> = ({ sampleProp }) => {
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
 
   // ___ use effect ___ ___ ___ ___ ___
-  useEffect( () => { console.log(sampleState) }, [ sampleState ] );
+  // useEffect( () => { console.log(sampleState) }, [ sampleState ] );
 
   // ___ event handler ___ ___ ___ ___ ___
   const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {

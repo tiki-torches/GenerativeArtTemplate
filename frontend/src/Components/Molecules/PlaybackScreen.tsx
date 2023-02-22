@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import TDModelForTHREEFactory from "../../Engine/Utils/Factories/TDModelForTHREEFactory";
-import { WorkPlayerInterface } from "../../Engine/WorkComponents/InterfacesAndTypes/Interfaces";
+import TDModelForTHREE from "src/Engine/WorkComponents/TDModels/TDModelForTHREE";
 import WorkPlayerForTHREE from "../../Engine/WorkComponents/WorkPlayer/WorkPlayerForTHREE";
 
 /**
@@ -12,14 +11,13 @@ import WorkPlayerForTHREE from "../../Engine/WorkComponents/WorkPlayer/WorkPlaye
 
 // Type Declaration of Props
 type Props = {
-  sampleProp ?: any;
+  tdModels: Array<TDModelForTHREE>;
 }
 
-export const PlaybackScreen : React.FC<Props> = ({ sampleProp }) => {
+export const PlaybackScreen : React.FC<Props> = ({ tdModels }) => {
 
   // ___ state ___ ___ ___ ___ ___
   const [ workPlayer, setWorkPlayer ] = useState<WorkPlayerForTHREE>();
-  const [ workData, setWorkData ] = useState<any>();
 
   // ___ use effect ___ ___ ___ ___ ___
   useEffect( () => { construct() }, [ ] );    // 初回レンダー時のみ実行 useEffectの依存対象に空配列を指定することで初回のみに限定できる
@@ -37,11 +35,10 @@ export const PlaybackScreen : React.FC<Props> = ({ sampleProp }) => {
     const canvas: HTMLCanvasElement = document.querySelector("#canvas") as HTMLCanvasElement;
     const workPlayer = new WorkPlayerForTHREE(canvas);
     setWorkPlayer(workPlayer);
-    setWorkData([ TDModelForTHREEFactory.generateSample() ]);
   }
 
   const play = () => {
-    workPlayer?.play(workData);
+    workPlayer?.play(tdModels);
   };
 
   const stop = () => {
@@ -50,12 +47,10 @@ export const PlaybackScreen : React.FC<Props> = ({ sampleProp }) => {
 
   const reset = () => {
     workPlayer?.reset();
-    setWorkData([ TDModelForTHREEFactory.generateSample() ]);
   }
 
   return (
     <div>
-      <h2>{ PlaybackScreen.name }</h2>
       <canvas id = 'canvas'/>
       <button onClick = { play }>PLAY</button>
       <button onClick = { stop }>STOP</button>

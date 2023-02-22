@@ -12,11 +12,11 @@ import { TDModelEditor } from "../Molecules/TDModelEditor";
 
 // Type Declaration of Props
 type Props = {
-  workModel        : WorkModelUI;
-  updateWorkModel  : any;
+  workModelUI       : WorkModelUI;
+  updateWorkModelUI : any;
 }
 
-export const WorkEditorPanel: React.FC<Props> = ({ workModel, updateWorkModel }) => {
+export const WorkEditorPanel: React.FC<Props> = ({ workModelUI, updateWorkModelUI }) => {
 
   // ___ state ___ ___ ___ ___ ___
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
@@ -37,15 +37,15 @@ export const WorkEditorPanel: React.FC<Props> = ({ workModel, updateWorkModel })
 
   const onClickCreateButton = () => {
     // MEMO: オブジェクト内部の更新をReactは検知できないため、オブジェクトを複製しセットすることで再レンダーを促す
-    const clonedWorkModel: WorkModelUI = { ...workModel };
+    const cloned: WorkModelUI = { ...workModelUI };
 
     // TDModelを作成
-    const uid: number         = clonedWorkModel.tdModelsList.length + 1;
+    const uid: number         = cloned.tdModelsList.length + 1;
     const tdModel: TDModelUI  = new TDModelUI(uid, "CUBE");
 
     // WorkModelにTDModelを追加し更新
-    clonedWorkModel.tdModelsList.push(tdModel);
-    updateWorkModel(clonedWorkModel);
+    cloned.tdModelsList.push(tdModel);
+    updateWorkModelUI(cloned);
   }
 
   return (
@@ -56,7 +56,7 @@ export const WorkEditorPanel: React.FC<Props> = ({ workModel, updateWorkModel })
       </Grid>
 
       <Grid item xs = { 12 }>
-        { workModel?.tdModelsList.map( (tdModel) => <TDModelEditor key = { 'TDModel' + tdModel.uid } tdModel = { tdModel }/> )}
+        { workModelUI?.tdModelsList.map( (tdModel) => <TDModelEditor key = { 'TDModel' + tdModel.uid } tdModel = { tdModel }/> )}
       </Grid>
 
     </div>

@@ -8,6 +8,8 @@ class TDModelForTHREEFactory{
 
   static generateTDModel(uid: number, type: TDModelType): TDModelForTHREE{
 
+    // TODO: typeに応じたmeshを生成するように変更する
+
     const generateMesh = () => {
       const geometry  = new THREE.BoxGeometry(100, 100, 100);
       const material  = new THREE.MeshMatcapMaterial({ color: 0xffffff });
