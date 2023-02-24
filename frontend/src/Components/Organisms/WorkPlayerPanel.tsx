@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Grid from '@mui/material/Grid';
 import TDModelForTHREE from "../../Engine/WorkComponents/TDModels/TDModelForTHREE";
 import { PlaybackScreen } from "../Molecules/PlaybackScreen"
 import JSONDecoder from "../../Engine/Utils/Decoder/JSONDecoder"
@@ -30,6 +31,7 @@ export const WorkPlayerPanel : React.FC<Props> = ({ workJSON }) => {
   const [ tdModels, setTDModels ] = useState<Array<TDModelForTHREE>>([]);   // レンダリング用のモデル（UI用のオブジェクトではない）
 
   // ___ use effect ___ ___ ___ ___ ___
+  useEffect( () => { prepareToPlay() }, [ workJSON ] );   // PropにセットされたJSONが更新される度に再生準備を行う
 
   // ___ event handler ___ ___ ___ ___ ___
 
@@ -51,16 +53,17 @@ export const WorkPlayerPanel : React.FC<Props> = ({ workJSON }) => {
     return tdModelsForTHREE
   }
 
-  const onClickPrepare = () => {
-    const tdModelForRAW = decodeJSON(workJSON);
-    const tdModelForTHREE = convert(tdModelForRAW);
-    setTDModels(tdModelForTHREE);
+  // 再生準備を行うメソッド JSONから再生用データを復元する
+  const prepareToPlay = () => {
+    const tdModelsForRAW = decodeJSON(workJSON);        // JSONからRAW形式のTDModelを（JavaScriptオブジェクト）を復元
+    const tdModelsForTHREE = convert(tdModelsForRAW);   // RAW形式のTDModelをレンダリングライブラリーTHREE対応形式に変換
+    setTDModels(tdModelsForTHREE);
   }
+
 
   return (
     <div>
       <PlaybackScreen tdModels = { tdModels }/>
-      <button onClick = { onClickPrepare }> PREPARE </button>
       <p> { workJSON } </p>
     </div>
   );

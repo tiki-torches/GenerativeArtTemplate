@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Grid from '@mui/material/Grid';
 import TDModelForTHREE from "src/Engine/WorkComponents/TDModels/TDModelForTHREE";
 import WorkPlayerForTHREE from "../../Engine/WorkComponents/WorkPlayer/WorkPlayerForTHREE";
 
@@ -50,12 +51,19 @@ export const PlaybackScreen : React.FC<Props> = ({ tdModels }) => {
   }
 
   return (
-    <div>
-      <canvas id = 'canvas'/>
-      <button onClick = { play }>PLAY</button>
-      <button onClick = { stop }>STOP</button>
-      <button onClick = { reset }>RESET</button>
-    </div>
+    <Grid container>
+
+      <Grid container item>
+        <canvas id = 'canvas'/>
+      </Grid>
+
+      <Grid container>
+        <Grid item> <button onClick = { play }> PLAY </button> </Grid>
+        <Grid item> <button onClick = { stop }> STOP </button> </Grid>
+        <Grid item><button onClick = { reset }> RESET </button> </Grid>
+      </Grid>
+
+    </Grid>
   );
   
 };
