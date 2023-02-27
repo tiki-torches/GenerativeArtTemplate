@@ -15,10 +15,10 @@ import EffectEditor from "./EffectEditor";
 // Type Declaration of Props
 type Props = {
   tdModel : TDModelUI;
-  updateWorkModelUI: any;
+  updateParent: any;
 }
 
-export const TDModelEditor : React.FC<Props> = ({ tdModel, updateWorkModelUI }) => {
+export const TDModelEditor : React.FC<Props> = ({ tdModel, updateParent }) => {
 
   // ___ state ___ ___ ___ ___ ___
   // const [ workPlayer, setWorkPlayer ] = useState<WorkPlayerForTHREE>();
@@ -44,13 +44,13 @@ export const TDModelEditor : React.FC<Props> = ({ tdModel, updateWorkModelUI }) 
 
       {/** Effect追加操作用UI */}
       <div>
-        <EffectAdder targetEffects = { tdModel.effectsList } updateWorkModelUI = { updateWorkModelUI }/>
+        <EffectAdder targetEffects = { tdModel.effectsList } updateParent = { updateParent }/>
       </div>
 
       {/** EffectのProperty編集用UI */}
       <div>
         { tdModel.effectsList.map( (effect) => { 
-          return <EffectEditor key = { KeyGenerator.generate() } effect = { effect } updateWorkModelUI = { updateWorkModelUI } />
+          return <EffectEditor key = { KeyGenerator.generate() } effect = { effect } updateParent = { updateParent } />
         })}
       </div>
 

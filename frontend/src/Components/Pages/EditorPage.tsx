@@ -69,7 +69,7 @@ export const EditorPage : React.FC <Props> = ({ sampleProp }) => {
         <Grid item xs = { 12 }>
           {/** 編集中の場合は編集パネルを表示する 編集中でない場合（再生中の場合）は再生パネルを表示する */}
           { isEditing? 
-            <WorkEditorPanel workModelUI = { workModelUI } updateWorkModelUI = { updateWorkModelUI } InitializeWork = { InitializeWork } />:
+            <WorkEditorPanel workModelUI = { workModelUI } updateParent = { updateWorkModelUI } InitializeWork = { InitializeWork } />:
             <WorkPlayerPanel workJSON = { converUIintoJSON(workModelUI) } />
           }
         </Grid>

@@ -18,10 +18,10 @@ const DICT: any = [
 // Type Declaration of Props
 type Props = {
   targetEffects: Array<EffectUI>;   // 生成したEffectUIをセットするリスト
-  updateWorkModelUI: any;
+  updateParent: any;
 }
 
-export const EffectAdder: React.FC<Props> = ({ targetEffects, updateWorkModelUI }) => {
+export const EffectAdder: React.FC<Props> = ({ targetEffects, updateParent }) => {
 
   // ___ state ___ ___ ___ ___ ___
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
@@ -46,7 +46,7 @@ export const EffectAdder: React.FC<Props> = ({ targetEffects, updateWorkModelUI 
     const newEffect: EffectUI = EffectUIFactory.generate(1, targetType);
     // EffectUIをセットし更新
     targetEffects.push(newEffect);
-    updateWorkModelUI();
+    updateParent();
   }
 
 

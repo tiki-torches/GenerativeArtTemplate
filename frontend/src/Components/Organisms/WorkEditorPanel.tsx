@@ -14,11 +14,11 @@ import KeyGenerator from "../../Utils/KeyGenerator";
 // Type Declaration of Props
 type Props = {
   workModelUI       : WorkModelUI;
-  updateWorkModelUI : any;
+  updateParent : any;
   InitializeWork    : any;
 }
 
-export const WorkEditorPanel: React.FC<Props> = ({ workModelUI, updateWorkModelUI, InitializeWork }) => {
+export const WorkEditorPanel: React.FC<Props> = ({ workModelUI, updateParent, InitializeWork }) => {
 
   // ___ state ___ ___ ___ ___ ___
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
@@ -41,7 +41,7 @@ export const WorkEditorPanel: React.FC<Props> = ({ workModelUI, updateWorkModelU
 
     // WorkModelにTDModelを追加し更新
     workModelUI.tdModelsList.push(tdModel);
-    updateWorkModelUI();
+    updateParent();
   }
 
   const onClickInitializeButton = () => {
@@ -62,7 +62,7 @@ export const WorkEditorPanel: React.FC<Props> = ({ workModelUI, updateWorkModelU
       <Grid item xs = { 12 }>
         {/** TDModelの一覧を表示 */}
         { workModelUI?.tdModelsList.map( (tdModel) => {
-          return <TDModelEditor key = { KeyGenerator.generate() } tdModel = { tdModel } updateWorkModelUI = { updateWorkModelUI }/>
+          return <TDModelEditor key = { KeyGenerator.generate() } tdModel = { tdModel } updateParent = { updateParent }/>
         })}
       </Grid>
 

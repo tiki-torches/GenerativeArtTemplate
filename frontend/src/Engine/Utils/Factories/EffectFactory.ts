@@ -1,13 +1,22 @@
-import EffectRoll from "src/Engine/WorkComponents/Effects/EffectRoll";
+import EffectRoll from "../../../Engine/WorkComponents/Effects/EffectRoll";
 import { EffectInterface } from "../../WorkComponents/InterfacesAndTypes/Interfaces";
-import { EffectType } from "../../WorkComponents/InterfacesAndTypes/Types";
+import { EffectParameter, EffectType } from "../../WorkComponents/InterfacesAndTypes/Types";
 
 class EffectFactory{
 
-  static generate(uid: number, type: EffectType): EffectInterface{
+  static generate(uid: number, type: EffectType, parm: EffectParameter): EffectInterface{
 
-    /** typeに応じたEffectを生成する */
-    const effect = new EffectRoll(uid, { x: 0, y: 0, z: 0 });  // !!! 仮置き !!!
+    let effect: EffectInterface;
+
+    // typeに応じたEffectを生成する
+    switch(type){
+      case "MOVE":
+        effect = new EffectRoll(uid, parm);
+        break;
+      default:
+        effect = new EffectRoll(uid, parm);
+      ;
+    }
 
     return effect
   }

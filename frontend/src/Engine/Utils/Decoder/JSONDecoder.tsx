@@ -1,5 +1,6 @@
 import { TDModelInterface, WorkModelInterface } from "../../WorkComponents/InterfacesAndTypes/Interfaces";
 import TDModelForRAW from "../../WorkComponents/TDModels/TDModelForRAW"
+import EffectFactory from "../Factories/EffectFactory";
 import TDModelForRAWFactory from "../Factories/TDModelForRAWFactory";
 
 class JSONDecoder {
@@ -9,7 +10,7 @@ class JSONDecoder {
     //  JSONのフォーマットが既定の形式に則っているか検証する
     const isNoError = this.checkFormat(workJSON);
     
-    if(true){   // !!! 仮置き
+    if(true){   // !!! WIP !!!
 
       // オブジェクトに変換
       const source: WorkModelInterface = JSON.parse(workJSON);
@@ -22,7 +23,10 @@ class JSONDecoder {
         tdModelForRAW.property = source.property;
 
         // Effectを復元
-        /** 復元処理 */
+        source.effectsList.forEach( (effectSource) => { 
+          const effect = EffectFactory.generate(effectSource.uid, effectSource.type, effectSource.parameter);
+          tdModelForRAW.effectsList.push(effect);
+        })
 
         return tdModelForRAW;
       } );

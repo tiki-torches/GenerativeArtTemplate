@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { EffectUI } from "../../Utils/WorkComponentsUI";
+import VectorInput from "./InputForms/VectorInput";
 
 /**
  * Outline	: XXXするComponent
@@ -10,11 +11,11 @@ import { EffectUI } from "../../Utils/WorkComponentsUI";
 
 // Type Declaration of Props
 type Props = {
-  effect      : EffectUI;
-  updateWorkModelUI: any;
+  effect: EffectUI;
+  updateParent: any;
 }
 
-export const EffectEditor: React.FC<Props> = ({ effect, updateWorkModelUI }) => {
+export const EffectEditor: React.FC<Props> = ({ effect, updateParent }) => {
 
   // ___ state ___ ___ ___ ___ ___
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
@@ -33,7 +34,8 @@ export const EffectEditor: React.FC<Props> = ({ effect, updateWorkModelUI }) => 
   return (
     <div>
       <h2>{ effect.type }</h2>
-      <p> { JSON.stringify(effect.parameter) } </p>   
+      <p> { JSON.stringify(effect.parameter) } </p>
+      <VectorInput targetVal = { effect.parameter } update = { updateParent }/>
     </div>
   );
 };
