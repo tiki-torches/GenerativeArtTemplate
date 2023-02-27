@@ -1,4 +1,4 @@
-import { ColorUI, CoordinateUI, EffectParameterUI, EffectTypeUI, TDModelTypeUI, VectorUI } from "./Types";
+import { ColorUI, CoordinateUI, EffectUIParameter, EffectUIType, TDModelUIType, VectorUI } from "./Types";
 
 export class WorkModelUI{
 
@@ -23,7 +23,7 @@ export class TDModelUI{
 
   // メタデータ
   uid       : number;
-  type      : TDModelTypeUI;
+  type      : TDModelUIType;
 
   // 3Dモデルの状態（表示位置・色・移動速度 など）を示す情報
   property: TDModelPropertyUI;
@@ -31,7 +31,7 @@ export class TDModelUI{
   // 適用するEffectの一覧
   effectsList: Array<EffectUI>;
 
-  constructor(uid: number, type: TDModelTypeUI){
+  constructor(uid: number, type: TDModelUIType){
     this.uid  = uid;
     this.type = type;
     this.property     = new TDModelPropertyUI();
@@ -60,14 +60,14 @@ export class EffectUI{
 
     // メタデータ
     uid     : number;
-    type    : EffectTypeUI;
+    type    : EffectUIType;
     priority: number;
     // !!! TODO: priorityの設定はグローバル管理に変更すること !!!
   
     // Effect適用時に用いるパラメータ
-    parameter  : EffectParameterUI;
+    parameter  : EffectUIParameter;
 
-    constructor(uid: number, type: EffectTypeUI, priority: number, parameter: EffectParameterUI){
+    constructor(uid: number, type: EffectUIType, priority: number, parameter: EffectUIParameter){
       this.uid = uid;
       this.type = type;
       this.priority = priority;

@@ -36,6 +36,14 @@ export const EditorPage : React.FC <Props> = ({ sampleProp }) => {
     }
   }
 
+  // UIを更新するメソッド
+  const updateWorkModelUI = () => {
+    // WorkModelUIを複製した同オブジェクトで更新する
+    // MEMO: オブジェクト内部の更新をReactは検知できないため、オブジェクトを複製しセットすることで再レンダーを促す
+    const clone = { ...workModelUI };
+    setWorkModelUI(clone);
+  }
+
   const InitializeWork = () => {
     const getRandom = (max: number): number => { return Math.floor(Math.random() * max); }
     const uid: number = getRandom(100);
@@ -61,7 +69,7 @@ export const EditorPage : React.FC <Props> = ({ sampleProp }) => {
         <Grid item xs = { 12 }>
           {/** 編集中の場合は編集パネルを表示する 編集中でない場合（再生中の場合）は再生パネルを表示する */}
           { isEditing? 
-            <WorkEditorPanel workModelUI = { workModelUI } updateWorkModelUI = { setWorkModelUI } InitializeWork = { InitializeWork } />:
+            <WorkEditorPanel workModelUI = { workModelUI } updateWorkModelUI = { updateWorkModelUI } InitializeWork = { InitializeWork } />:
             <WorkPlayerPanel workJSON = { converUIintoJSON(workModelUI) } />
           }
         </Grid>

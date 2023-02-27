@@ -1,5 +1,9 @@
+import { Update } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import { TDModelUI } from "src/Utils/WorkComponentsUI";
+import KeyGenerator from "../../Utils/KeyGenerator";
+import { TDModelUI } from "../../Utils/WorkComponentsUI";
+import EffectAdder from "./EffectAdder";
+import EffectEditor from "./EffectEditor";
 
 /**
  * Outline	: XXXするComponent
@@ -11,9 +15,10 @@ import { TDModelUI } from "src/Utils/WorkComponentsUI";
 // Type Declaration of Props
 type Props = {
   tdModel : TDModelUI;
+  updateWorkModelUI: any;
 }
 
-export const TDModelEditor : React.FC<Props> = ({ tdModel }) => {
+export const TDModelEditor : React.FC<Props> = ({ tdModel, updateWorkModelUI }) => {
 
   // ___ state ___ ___ ___ ___ ___
   // const [ workPlayer, setWorkPlayer ] = useState<WorkPlayerForTHREE>();
@@ -31,7 +36,25 @@ export const TDModelEditor : React.FC<Props> = ({ tdModel }) => {
 
   return (
     <div>
-      <p> { JSON.stringify(tdModel) } </p>
+
+      {/** TDModel情報表示用UI */}
+      <p> { JSON.stringify(tdModel.uid) } </p>
+      <p> { JSON.stringify(tdModel.type) } </p>
+      <p> { JSON.stringify(tdModel.property) } </p>
+
+      {/** Effect追加操作用UI */}
+      <div>
+        <EffectAdder targetEffects = { tdModel.effectsList } updateWorkModelUI = { updateWorkModelUI }/>
+      </div>
+
+      {/** EffectのProperty編集用UI */}
+      <div>
+        { tdModel.effectsList.map( (effect) => { 
+          return <EffectEditor key = { KeyGenerator.generate() } effect = { effect } updateWorkModelUI = { updateWorkModelUI } />
+        })}
+      </div>
+
+      <p> ___ ___ ___ </p>
     </div>
   );
   

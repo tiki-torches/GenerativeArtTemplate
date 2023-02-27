@@ -5,11 +5,11 @@
  * */
 
 // Effect
-export type EffectTypeUI      = "ROLL" | "MOVE";
-export type EffectParameterUI = { x: number, y: number, z: number };
+export type EffectUIType      = "ROLL" | "MOVE";
+export type EffectUIParameter = { x: number, y: number, z: number };
 
 // TDModel
-export type TDModelTypeUI = "CUBE" | "BALL";
+export type TDModelUIType = "CUBE" | "BALL";
 
 // General
 export type VectorUI      = { x: number, y: number, z: number }
