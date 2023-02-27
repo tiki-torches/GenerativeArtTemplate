@@ -11,7 +11,7 @@ class EffectRoll implements EffectInterface{
   // メタデータ
   uid     : number;
   type    : EffectType  = "ROLL";
-  priority: number      = 10;       // Effectの適用順位（値が大きいほど優先度が高い）
+  priority: number      = 10;
 
   // Effect適用時に用いるパラメータ
   parameter  : EffectParameter;
@@ -30,6 +30,8 @@ class EffectRoll implements EffectInterface{
   calc(property: TDModelProperty, parameter: EffectParameter): TDModelProperty{
     const calcuatedProp: TDModelProperty = { ...property };
     calcuatedProp.rotation.x = parameter.x;
+    calcuatedProp.rotation.y = parameter.y;
+    calcuatedProp.rotation.z = parameter.z;
     return calcuatedProp
   }
 

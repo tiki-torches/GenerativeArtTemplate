@@ -27,7 +27,7 @@ class TDModelForRAW implements TDModelInterface{
     this.uid  = uid;
     this.type = type;
     this.tdObject     = undefined;    // RAW形式はレンダリングを行わないため、3Dモデルデータは不要
-    this.property     = new TDModelProperty;
+    this.property     = new TDModelProperty();
     this.effectsList  = [];
   }
 

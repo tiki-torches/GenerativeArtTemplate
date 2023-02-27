@@ -5,6 +5,20 @@ import TDModelForRAW from "../TDModels/TDModelForRAW";
 import TDModelProperty from "../TDModels/TDModelProperty";
 
 
+export interface WorkModelInterface{
+
+  // メタデータ（必須）
+  uid     : number;
+
+  // メタデータ（任意）
+  author      : string | undefined;
+  createdData : number | undefined;
+
+  // 3Dモデルの一覧
+  tdModelsList: Array<TDModelInterface>;
+
+}
+
 export interface EffectInterface{
 
   // メタデータ
@@ -59,7 +73,7 @@ export interface TDModelInterface{
 }
 
 
-export interface TDModelConverter{
+export interface TDModelConverterInterface{
 
   /**
    * RAW形式の3DModelをもとに、各種レンダリングライブラリ用の3DModelを生成（変換）する処理

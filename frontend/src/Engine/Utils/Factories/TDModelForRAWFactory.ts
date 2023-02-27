@@ -1,8 +1,14 @@
 import TDModelForRAW from "../../WorkComponents/TDModels/TDModelForRAW"
 import EffectRoll from "../../WorkComponents/Effects/EffectRoll";
+import { TDModelType } from "../../WorkComponents/InterfacesAndTypes/Types";
 
 
 class TDModelForRAWFactory{
+
+  static generate(uid: number, type: TDModelType): TDModelForRAW{
+    const tdModel = new TDModelForRAW(uid, type);
+    return tdModel
+  }
 
   static generateSample(): TDModelForRAW{
     const sampleTDModel = new TDModelForRAW(1, "CUBE");
