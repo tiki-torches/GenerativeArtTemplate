@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import EffectUIFactory from "../../Utils/Factories/EffectUIFactory";
-import { EffectUIType } from "../../Utils/Types";
-import { EffectUI } from "../../Utils/WorkComponentsUI";
+import EffectUIFactory from "../../../Utils/Factories/EffectUIFactory";
+import { EffectUIType } from "../../../Utils/Types";
+import { EffectUI } from "../../../Utils/WorkComponentsUI";
 
 /**
  * Outline	: 指定されたEffectUIを生成するComponent

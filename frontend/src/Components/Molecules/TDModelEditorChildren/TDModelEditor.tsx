@@ -1,9 +1,10 @@
 import { Update } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import KeyGenerator from "../../Utils/KeyGenerator";
-import { TDModelUI } from "../../Utils/WorkComponentsUI";
+import KeyGenerator from "../../../Utils/KeyGenerator";
+import { TDModelUI } from "../../../Utils/WorkComponentsUI";
 import EffectAdder from "./EffectAdder";
-import EffectEditor from "./EffectEditor";
+import EffectPropertyEditor from "./EffectPropertyEditor";
+import TDModelPropertyEditor from "./TDModelPropertyEditor";
 
 /**
  * Outline	: XXXするComponent
@@ -37,10 +38,8 @@ export const TDModelEditor : React.FC<Props> = ({ tdModel, updateParent }) => {
   return (
     <div>
 
-      {/** TDModel情報表示用UI */}
-      <p> { JSON.stringify(tdModel.uid) } </p>
-      <p> { JSON.stringify(tdModel.type) } </p>
-      <p> { JSON.stringify(tdModel.property) } </p>
+      {/** TDModelのProperty編集用UI */}
+      <TDModelPropertyEditor tdModel = { tdModel } updateParent = { updateParent }/>
 
       {/** Effect追加操作用UI */}
       <div>
@@ -49,8 +48,8 @@ export const TDModelEditor : React.FC<Props> = ({ tdModel, updateParent }) => {
 
       {/** EffectのProperty編集用UI */}
       <div>
-        { tdModel.effectsList.map( (effect) => { 
-          return <EffectEditor key = { KeyGenerator.generate() } effect = { effect } updateParent = { updateParent } />
+        { tdModel.effectsList.map( (effect, index) => { 
+          return <EffectPropertyEditor key = { tdModel.uid + effect.uid + index } effect = { effect } updateParent = { updateParent } />
         })}
       </div>
 
