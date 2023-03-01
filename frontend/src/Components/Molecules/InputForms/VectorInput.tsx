@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import NumberInput from "../../../Components/Atoms/NumberInput";
 import { VectorUI } from "../../../Utils/Types";
 
 /**
@@ -12,36 +13,32 @@ import { VectorUI } from "../../../Utils/Types";
 type Props = {
   sampleProp ?: any;
   targetVal: VectorUI;
-  update: any;
+  updateParent: any;
 }
 
-export const VectorInput: React.FC<Props> = ({targetVal, update }) => {
+export const VectorInput: React.FC<Props> = ({targetVal, updateParent }) => {
 
   // ___ state ___ ___ ___ ___ ___
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
-  const [ valX, setValX ] = useState<any>(targetVal.x);
-  const [ valY, setValY ] = useState<any>(targetVal.y);
-  const [ valZ, setValZ ] = useState<any>(targetVal.z);
 
   // ___ use effect ___ ___ ___ ___ ___
   useEffect( () => { console.log(sampleState) }, [ sampleState ] );
 
   // ___ event handler ___ ___ ___ ___ ___
-  const handleChangeValX = (e : React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value
-    targetVal.x = Number(newValue);
-    update();
-  };
-  const handleChangeValY = (e : React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value
-    targetVal.y = Number(newValue);
-    update();
-  };
-  const handleChangeValZ = (e : React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value
-    targetVal.z = Number(newValue);
-    update();
-  };
+  const handleChangeX = (val: number) => {
+    targetVal.x = val;
+    updateParent();
+  }
+
+  const handleChangeY = (val: number) => {
+    targetVal.y = val;
+    updateParent();
+  }
+
+  const handleChangeZ = (val: number) => {
+    targetVal.z = val;
+    updateParent();
+  }
 
   // ___ method ___ ___ ___ ___ ___
   const test = () => {
@@ -50,25 +47,9 @@ export const VectorInput: React.FC<Props> = ({targetVal, update }) => {
   
   return (
     <div>
-      <input
-        type      = "number"
-        value     = { valX }
-        step      = { 0.01 }
-        onChange  = { handleChangeValX }
-      />
-      <input
-        type      = "number"
-        value     = { valY }
-        step      = { 0.01 }
-        onChange  = { handleChangeValY }
-      />
-      <input
-        type      = "number"
-        value     = { valZ }
-        step      = { 0.01 }
-        onChange  = { handleChangeValZ }
-      />
-
+      <NumberInput targetVal = { targetVal.x } step = { 0.01 } onChange = { handleChangeX } />
+      <NumberInput targetVal = { targetVal.y } step = { 0.01 } onChange = { handleChangeY } />
+      <NumberInput targetVal = { targetVal.z } step = { 0.01 } onChange = { handleChangeZ } />
     </div>
   );
 };
