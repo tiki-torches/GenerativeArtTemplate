@@ -29,9 +29,9 @@ class EffectRoll implements EffectInterface{
    */
   calc(property: TDModelProperty, parameter: EffectParameter): TDModelProperty{
     const calcuatedProp: TDModelProperty = { ...property };
-    calcuatedProp.rotation.x = parameter.x;
-    calcuatedProp.rotation.y = parameter.y;
-    calcuatedProp.rotation.z = parameter.z;
+    calcuatedProp.rotation.x = calcuatedProp.rotation.x + parameter.x;
+    calcuatedProp.rotation.y = calcuatedProp.rotation.y + parameter.y;
+    calcuatedProp.rotation.z = calcuatedProp.rotation.z + parameter.z;
     return calcuatedProp
   }
 
