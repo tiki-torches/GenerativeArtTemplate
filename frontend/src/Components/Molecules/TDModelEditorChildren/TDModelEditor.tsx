@@ -1,9 +1,8 @@
-import { Update } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import KeyGenerator from "../../../Utils/KeyGenerator";
+import Grid from '@mui/material/Grid';
 import { TDModelUI } from "../../../Utils/WorkComponentsUI";
 import EffectAdder from "./EffectAdder";
-import EffectPropertyEditor from "./EffectPropertyEditor";
+import EffectEditor from "./EffectEditor";
 import TDModelPropertyEditor from "./TDModelPropertyEditor";
 
 /**
@@ -36,25 +35,30 @@ export const TDModelEditor : React.FC<Props> = ({ tdModel, updateParent }) => {
   }
 
   return (
-    <div>
+    <Grid container spacing = { 2 }>
 
       {/** TDModelのProperty編集用UI */}
-      <TDModelPropertyEditor tdModel = { tdModel } updateParent = { updateParent }/>
+      <Grid item xs = { 12 }>
+        <TDModelPropertyEditor tdModel = { tdModel } updateParent = { updateParent }/>
+      </Grid>
 
       {/** Effect追加操作用UI */}
-      <div>
+      <Grid item xs = { 12 }>
         <EffectAdder targetEffects = { tdModel.effectsList } updateParent = { updateParent }/>
-      </div>
+      </Grid>
 
       {/** EffectのProperty編集用UI */}
-      <div>
-        { tdModel.effectsList.map( (effect, index) => { 
-          return <EffectPropertyEditor key = { tdModel.uid + effect.uid + index } effect = { effect } updateParent = { updateParent } />
-        })}
-      </div>
+      <Grid item container xs = { 12 } >
+        <Grid  container spacing = { 2 } >
+          { tdModel.effectsList.map( (effect, index) => {
+            const key = tdModel.uid + effect.uid + index;
+            const editor = <EffectEditor effect = { effect } updateParent = { updateParent } />;
+            return <Grid item xs = { 12 } key = { key }> { editor } </Grid>
+          })}
+        </Grid>
+      </Grid>
+    </Grid>
 
-      <p> ___ ___ ___ </p>
-    </div>
   );
   
 };

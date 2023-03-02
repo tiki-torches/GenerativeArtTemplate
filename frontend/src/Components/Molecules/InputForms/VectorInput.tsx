@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Grid from '@mui/material/Grid';
 import NumberInput from "../../../Components/Atoms/NumberInput";
 import { VectorUI } from "../../../Utils/Types";
 
@@ -46,11 +47,20 @@ export const VectorInput: React.FC<Props> = ({targetVal, updateParent }) => {
   }
   
   return (
-    <div>
-      <NumberInput targetVal = { targetVal.x } step = { 0.01 } onChange = { handleChangeX } />
-      <NumberInput targetVal = { targetVal.y } step = { 0.01 } onChange = { handleChangeY } />
-      <NumberInput targetVal = { targetVal.z } step = { 0.01 } onChange = { handleChangeZ } />
-    </div>
+    <Grid container spacing = { 2 }>
+
+      <Grid item xs = { 12 } md = { 4 } >
+        <NumberInput targetVal = { targetVal.x } step = { 0.01 } onChange = { handleChangeX } />
+      </Grid>
+
+      <Grid item xs = { 12 } md = { 4 } >
+        <NumberInput targetVal = { targetVal.y } step = { 0.01 } onChange = { handleChangeY } />
+      </Grid>
+
+      <Grid item xs = { 12 } md = { 4 } >
+        <NumberInput targetVal = { targetVal.z } step = { 0.01 } onChange = { handleChangeZ } />
+      </Grid>
+    </Grid>
   );
 };
 

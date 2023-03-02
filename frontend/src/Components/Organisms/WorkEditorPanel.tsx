@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Grid from '@mui/material/Grid';
 import { TDModelUI, WorkModelUI } from "../../Utils/WorkComponentsUI";
-import { TDModelEditor } from "../Molecules/TDModelEditor";
+import { TDModelEditor } from "../Molecules/TDModelEditorChildren/TDModelEditor";
 import KeyGenerator from "../../Utils/KeyGenerator";
+import BasicAccordion from "../Atoms/BasicAccordion";
 
 /**
  * Outline	: XXXするComponent
@@ -13,9 +14,9 @@ import KeyGenerator from "../../Utils/KeyGenerator";
 
 // Type Declaration of Props
 type Props = {
-  workModelUI       : WorkModelUI;
-  updateParent : any;
-  InitializeWork    : any;
+  workModelUI     : WorkModelUI;
+  updateParent    : any;
+  InitializeWork  : any;
 }
 
 export const WorkEditorPanel: React.FC<Props> = ({ workModelUI, updateParent, InitializeWork }) => {
@@ -49,7 +50,8 @@ export const WorkEditorPanel: React.FC<Props> = ({ workModelUI, updateParent, In
   }
 
   return (
-    <Grid container>
+
+    <Grid container spacing = { 2 }>
 
       <Grid item xs = { 12 }>
         <button onClick = { onClickInitializeButton }> INITIALIZE WORK </button>
@@ -59,14 +61,21 @@ export const WorkEditorPanel: React.FC<Props> = ({ workModelUI, updateParent, In
         <button onClick = { onClickCreateButton }> ADD SAMPLE TDMODEL </button>
       </Grid>
 
-      <Grid item xs = { 12 }>
-        {/** TDModelの一覧を表示 */}
-        { workModelUI?.tdModelsList.map( (tdModel) => {
-          return <TDModelEditor key = { KeyGenerator.generate() } tdModel = { tdModel } updateParent = { updateParent }/>
-        })}
+      {/** TDModelの一覧を表示 */}
+      <Grid item xs = { 12 } >
+        <Grid container spacing = { 2 }>
+          { workModelUI?.tdModelsList.map( (tdModel, index) => {
+              const key       = tdModel.uid + index;    // ランダム生成したキーを設定しないこと Reactによる過剰な範囲の再レンダーを防ぐため
+              const label     = tdModel.type + tdModel.uid;
+              const contents  = <TDModelEditor tdModel = { tdModel } updateParent = { updateParent }/>;
+              const basicAccordion = <BasicAccordion label = { label } contents = { contents } />;
+            return <Grid item xs = { 12 } sm = { 6 } key = { key }> { basicAccordion } </Grid>
+          })}
+        </Grid>
       </Grid>
 
     </Grid>
+
   );
 };
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import TextField from '@mui/material/TextField';
 
 /**
  * Outline	: XXXするComponent
@@ -23,32 +24,23 @@ export const NumberInput: React.FC<Props> = ({ targetVal, step, onChange }) => {
 
   // ___ event handler ___ ___ ___ ___ ___
   const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-
-    const newVal = Number(e.target.value);
-
+    let newVal = Number(e.target.value);
     // UIを更新
     setVal(newVal);
-
     // 親コンポーネントが定義したイベントを実行
     onChange(newVal);
-    
   };
 
-
   // ___ method ___ ___ ___ ___ ___
-  const test = () => {
-    console.log('test');
-  }
-  
+
   return (
-    <div>
-      <input
-        type      = "number"
-        value     = { val }
-        step      = { step }
-        onChange  = { handleChange }
-      />
-    </div>
+    <TextField
+      value     = { val }
+      onChange  = { handleChange }
+      label = "Number"
+      type  = "number"
+      InputLabelProps = { { shrink: true }}
+    />
   );
 };
 
