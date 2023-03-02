@@ -19,9 +19,10 @@ import Typography from '@mui/material/Typography';
 type Props = {
   effect        : EffectUI;
   updateParent  : any;
+  removeEffect  : any;
 }
 
-export const EffectEditor: React.FC<Props> = ({ effect, updateParent }) => {
+export const EffectEditor: React.FC<Props> = ({ effect, updateParent, removeEffect }) => {
 
   // ___ state ___ ___ ___ ___ ___
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
@@ -30,9 +31,13 @@ export const EffectEditor: React.FC<Props> = ({ effect, updateParent }) => {
 
   // ___ event handler ___ ___ ___ ___ ___
   const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value
+    const newValue = e.target.value;
     setSampleState(newValue);
   };
+
+  const onClickRemoveButton = () => {
+    removeEffect(effect);
+  }
 
   // ___ method ___ ___ ___ ___ ___
 
@@ -52,7 +57,7 @@ export const EffectEditor: React.FC<Props> = ({ effect, updateParent }) => {
       </CardContent>
 
       <CardActions>
-        <Button size="small"> DELETE </Button>
+        <Button onClick = { onClickRemoveButton } size = "small"> REMOVE </Button>
       </CardActions>
 
     </Card>

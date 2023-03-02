@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Grid from '@mui/material/Grid';
-import { TDModelUI } from "../../../Utils/WorkComponentsUI";
+import { EffectUI, TDModelUI } from "../../../Utils/WorkComponentsUI";
 import EffectAdder from "./EffectAdder";
 import EffectEditor from "./EffectEditor";
 import TDModelPropertyEditor from "./TDModelPropertyEditor";
@@ -34,6 +34,20 @@ export const TDModelEditor : React.FC<Props> = ({ tdModel, updateParent }) => {
     console.log('test');
   }
 
+  const removeEffect = (target: EffectUI) => {
+    /** MEMO: EffectEditorではなく本コンポーネントにEffectを削除するメソッドを追加する理由
+     *    JSには配列から直接特定の要素を削除する処理が無く、特定の要素を削除後の配列を返すものしか存在しない
+     *    つまり、配列から特定の要素を差し替えるためには、配列の差し替えを行うしか方法がない
+     *    TDModelのプロパティである配列effectsListを操作するためには、TDModelにアクセスできる本コンポーネント内で先述の差し替えを実行する必要がある
+     *    なお、子コンポーネントにTDModelへアクセスする手段を提供するという方法もあるが、移譲するデータ量を抑えるために不採用とした
+    */
+    const filteredEffects = tdModel.effectsList.filter(
+      (effect: EffectUI) => { return (effect != target) }
+    )
+    tdModel.effectsList = filteredEffects;
+    updateParent();
+  }
+
   return (
     <Grid container spacing = { 2 }>
 
@@ -51,10 +65,11 @@ export const TDModelEditor : React.FC<Props> = ({ tdModel, updateParent }) => {
       <Grid item container xs = { 12 } >
         <Grid  container spacing = { 2 } >
           { tdModel.effectsList.map( (effect, index) => {
-            const key = tdModel.uid + effect.uid + index;
-            const editor = <EffectEditor effect = { effect } updateParent = { updateParent } />;
+            const editor  = <EffectEditor effect = { effect } updateParent = { updateParent } removeEffect = { removeEffect } />;
+            const key     = tdModel.uid + effect.uid + index;
             return <Grid item xs = { 12 } key = { key }> { editor } </Grid>
           })}
+
         </Grid>
       </Grid>
     </Grid>

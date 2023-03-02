@@ -43,7 +43,8 @@ export const EffectAdder: React.FC<Props> = ({ targetEffects, updateParent }) =>
   
   const onClickAddButton = () => {
     // EffectUIを生成
-    const newEffect: EffectUI = EffectUIFactory.generate(1, targetType);
+    const uid: number = targetEffects.length + 1;   // !!! WIP !!!
+    const newEffect: EffectUI = EffectUIFactory.generate(uid, targetType);
     // EffectUIをセットし更新
     targetEffects.push(newEffect);
     updateParent();
