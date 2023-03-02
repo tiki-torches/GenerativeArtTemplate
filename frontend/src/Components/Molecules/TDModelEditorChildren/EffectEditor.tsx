@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { EffectUI } from "../../../Utils/WorkComponentsUI";
 import VectorInput from "../InputForms/VectorInput";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 /**
  * Outline	: XXXするComponent
@@ -15,7 +21,7 @@ type Props = {
   updateParent  : any;
 }
 
-export const EffectPropertyEditor: React.FC<Props> = ({ effect, updateParent }) => {
+export const EffectEditor: React.FC<Props> = ({ effect, updateParent }) => {
 
   // ___ state ___ ___ ___ ___ ___
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
@@ -32,12 +38,26 @@ export const EffectPropertyEditor: React.FC<Props> = ({ effect, updateParent }) 
 
 
   return (
-    <div>
-      <h2>{ effect.type }</h2>
-      <p> { JSON.stringify(effect.parameter) } </p>
-      <VectorInput targetVal = { effect.parameter } updateParent = { updateParent }/>
-    </div>
+
+    <Card variant="outlined">
+
+      <CardContent>
+
+        <Typography gutterBottom variant="h5">
+          { effect.type }
+        </Typography>
+
+        <VectorInput targetVal = { effect.parameter } updateParent = { updateParent }/>
+        
+      </CardContent>
+
+      <CardActions>
+        <Button size="small"> DELETE </Button>
+      </CardActions>
+
+    </Card>
+    
   );
 };
 
-export default EffectPropertyEditor
+export default EffectEditor
