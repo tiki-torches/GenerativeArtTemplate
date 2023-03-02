@@ -2,7 +2,6 @@ import { EffectInterface } from "../InterfacesAndTypes/Interfaces";
 import { EffectParameter, EffectType, TDModelType } from "../InterfacesAndTypes/Types";
 import TDModelProperty from "../TDModels/TDModelProperty";
 
-
 /**
  * 
  */
@@ -20,7 +19,6 @@ class EffectRoll implements EffectInterface{
     this.uid = uid;
     this.parameter = parameter;
   }
-
   
   /**
    * Effect適用後のpropertyを算出し返すメソッド
@@ -28,11 +26,15 @@ class EffectRoll implements EffectInterface{
    * @param parameter
    */
   calc(property: TDModelProperty, parameter: EffectParameter): TDModelProperty{
+
+    const WEIGHT = 0.001;
+
     const calcuatedProp: TDModelProperty = { ...property };
-    calcuatedProp.rotation.x = calcuatedProp.rotation.x + parameter.x;
-    calcuatedProp.rotation.y = calcuatedProp.rotation.y + parameter.y;
-    calcuatedProp.rotation.z = calcuatedProp.rotation.z + parameter.z;
+    calcuatedProp.rotation.x = calcuatedProp.rotation.x + parameter.x * WEIGHT;
+    calcuatedProp.rotation.y = calcuatedProp.rotation.y + parameter.y * WEIGHT;
+    calcuatedProp.rotation.z = calcuatedProp.rotation.z + parameter.z * WEIGHT;
     return calcuatedProp
+
   }
 
 }
