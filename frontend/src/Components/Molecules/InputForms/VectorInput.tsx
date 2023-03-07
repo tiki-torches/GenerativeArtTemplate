@@ -7,9 +7,8 @@ const inputProps = { step: "10" };
 
 // Type Declaration of Props
 type Props = {
-  sampleProp ?: any;
-  targetVal: VectorUI;
-  updateParent: any;
+  targetVal     : VectorUI;
+  updateParent  : any;
 }
 
 /**

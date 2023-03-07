@@ -14,7 +14,7 @@ class JSONDecoder {
 
       // オブジェクトに変換
       const source: WorkModelInterface = JSON.parse(workJSON);
-
+      
       // RAW形式のTDModelを復元
       const tdModelsForRAWList = source.tdModelsList.map( (source) => {
 

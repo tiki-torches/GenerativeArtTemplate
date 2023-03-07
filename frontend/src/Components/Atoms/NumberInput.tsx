@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TextField from '@mui/material/TextField';
 
 /**
@@ -10,10 +10,10 @@ import TextField from '@mui/material/TextField';
 
 // Type Declaration of Props
 type Props = {
-  targetVal  : number;
-  inputProps?: any;
-  onChange  ?: any;
-  label     ?: string;
+  targetVal    : number;
+  inputProps  ?: any;
+  onChange    ?: any;
+  label       ?: string;
 }
 
 export const NumberInput: React.FC<Props> = ({ targetVal, inputProps, onChange, label }) => {

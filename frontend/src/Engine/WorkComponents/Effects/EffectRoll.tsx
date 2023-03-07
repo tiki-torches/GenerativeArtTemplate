@@ -39,5 +39,4 @@ class EffectRoll implements EffectInterface{
 
 }
 
-
 export default EffectRoll
