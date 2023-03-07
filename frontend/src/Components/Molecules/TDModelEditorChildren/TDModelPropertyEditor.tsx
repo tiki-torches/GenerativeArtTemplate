@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Grid from '@mui/material/Grid';
 import { TDModelUI } from "../../../Utils/WorkComponentsUI";
+import PositionInput from "../InputForms/PositionInput";
+import ColorInput from "../InputForms/ColorInput";
 
 /**
  * Outline	: 指定されたEffectUIを生成するComponent
@@ -33,15 +35,15 @@ export const TDModelPropertyEditor: React.FC<Props> = ({ tdModel, updateParent }
     console.log('test');
   }
   
-
-
-
   return (
 
     <div>
 
-      <p> { 'POSITION' + JSON.stringify(tdModel.property.position) } </p>
-      <p> { 'COLOR' + JSON.stringify(tdModel.property.color) } </p>
+      <p> POSITION </p>
+      <PositionInput targetVal = { tdModel.property.position } updateParent= { updateParent }/>
+
+      <p> COLOR </p>
+      <ColorInput targetVal = { tdModel.property.color } updateParent= { updateParent }/>
 
     </div>
   );

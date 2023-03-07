@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Grid from '@mui/material/Grid';
-import NumberInput from "../../../Components/Atoms/NumberInput";
+import NumberInput from "../../Atoms/NumberInput";
 import { VectorUI } from "../../../Utils/Types";
 
 /**
@@ -17,7 +17,7 @@ type Props = {
   updateParent: any;
 }
 
-export const VectorInput: React.FC<Props> = ({targetVal, updateParent }) => {
+export const PositionInput: React.FC<Props> = ({targetVal, updateParent }) => {
 
   // ___ state ___ ___ ___ ___ ___
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
@@ -61,4 +61,4 @@ export const VectorInput: React.FC<Props> = ({targetVal, updateParent }) => {
   );
 };
 
-export default VectorInput
+export default PositionInput
