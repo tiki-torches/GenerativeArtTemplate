@@ -51,7 +51,7 @@ class TDModelPropertyUI{
    this.position = { x: 0, y: 0, z: 0 };
    this.vector   = { x: 0, y: 0, z: 0 };
    this.rotation = { x: 0, y: 0, z: 0 };
-   this.color    = { r: 0, g: 0, b: 0 };
+   this.color    = { r: 255, g: 255, b: 255 };
  }
 
 }

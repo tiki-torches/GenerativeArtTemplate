@@ -11,11 +11,12 @@ import TextField from '@mui/material/TextField';
 // Type Declaration of Props
 type Props = {
   targetVal  : number;
+  inputProps?: any;
   onChange  ?: any;
   label     ?: string;
 }
 
-export const NumberInput: React.FC<Props> = ({ targetVal, onChange, label }) => {
+export const NumberInput: React.FC<Props> = ({ targetVal, inputProps, onChange, label }) => {
 
   // ___ state ___ ___ ___ ___ ___
   const [ val, setVal ] = useState<any>(targetVal);
@@ -35,11 +36,16 @@ export const NumberInput: React.FC<Props> = ({ targetVal, onChange, label }) => 
 
   return (
     <TextField
-      value     = { val }
-      onChange  = { handleChange }
-      label     = { label? label: "Number" }
-      type  = "number"
+
+      type            = "number"
+      fullWidth       = { true }
       InputLabelProps = { { shrink: true }}
+
+      value       = { val }
+      onChange    = { handleChange }
+      label       = { label? label: "Number" }
+      inputProps  = { inputProps? inputProps: undefined }
+
     />
   );
 };

@@ -3,12 +3,7 @@ import Grid from '@mui/material/Grid';
 import NumberInput from "../../Atoms/NumberInput";
 import { VectorUI } from "../../../Utils/Types";
 
-/**
- * Outline	: XXXするComponent
- * Logic		: - AAAをBBBにする
- *            - 親ComponentからCCCを受け取り、DDDとしたものを子Componentに渡す
- * View			: - KKKをリスト表示する
- */
+const inputProps = { step: "5" };
 
 // Type Declaration of Props
 type Props = {
@@ -17,6 +12,12 @@ type Props = {
   updateParent: any;
 }
 
+/**
+ * Outline	: XXXするComponent
+ * Logic		: - AAAをBBBにする
+ *            - 親ComponentからCCCを受け取り、DDDとしたものを子Componentに渡す
+ * View			: - KKKをリスト表示する
+ */
 export const PositionInput: React.FC<Props> = ({targetVal, updateParent }) => {
 
   // ___ state ___ ___ ___ ___ ___
@@ -46,15 +47,15 @@ export const PositionInput: React.FC<Props> = ({targetVal, updateParent }) => {
     <Grid container spacing = { 2 }>
 
       <Grid item xs = { 12 } md = { 4 } >
-        <NumberInput targetVal = { targetVal.x } onChange = { handleChangeX } label = "X" />
+        <NumberInput targetVal = { targetVal.x } onChange = { handleChangeX } label = "X" inputProps = { inputProps }/>
       </Grid>
 
       <Grid item xs = { 12 } md = { 4 } >
-        <NumberInput targetVal = { targetVal.y } onChange = { handleChangeY } label = "Y"/>
+        <NumberInput targetVal = { targetVal.y } onChange = { handleChangeY } label = "Y" inputProps = { inputProps }/>
       </Grid>
 
       <Grid item xs = { 12 } md = { 4 } >
-        <NumberInput targetVal = { targetVal.z } onChange = { handleChangeZ } label = "Z"/>
+        <NumberInput targetVal = { targetVal.z } onChange = { handleChangeZ } label = "Z" inputProps = { inputProps }/>
       </Grid>
       
     </Grid>
