@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import ColorFactory from '../../Utils/ColorFactory';
 import { TDModelInterface } from "../InterfacesAndTypes/Interfaces";
 import { EffectInterface } from "../InterfacesAndTypes/Interfaces";
 import { TDModelType } from "../InterfacesAndTypes/Types";
@@ -49,19 +50,25 @@ class TDModelForTHREE implements TDModelInterface{
    * @param tdObject 
    * @param property 
    */
-  updateTDObject(tdObject: any, property: TDModelProperty): void{
+  updateTDObject(tdObject: THREE.Mesh, property: TDModelProperty): void{
+
+    // サイズ
+
+    // 位置
+    tdObject.position.set(property.position.x, property.position.y, property.position.z);
+
+    // 色
+    const hexColor = ColorFactory.convertRGBtoHex(property.color.r, property.color.g, property.color.b);
+    {/** @ts-ignore */}
+    tdObject.material.color.setHex(hexColor);
 
     // 回転
     tdObject.rotation.x = property.rotation.x;
     tdObject.rotation.y = property.rotation.y;
     tdObject.rotation.z = property.rotation.z;
-    
-    // サイズ
-    // 色
-    // 位置
+
   }
 
 }
-
 
 export default TDModelForTHREE
