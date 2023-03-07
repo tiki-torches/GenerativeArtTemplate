@@ -4,9 +4,11 @@ import VectorInput from "../InputForms/VectorInput";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 /**
  * Outline	: XXXするComponent
@@ -44,20 +46,22 @@ export const EffectEditor: React.FC<Props> = ({ effect, updateParent, removeEffe
 
   return (
 
-    <Card variant="outlined">
+    <Card variant = "outlined">
 
       <CardContent>
 
-        <Typography gutterBottom variant="h5">
+        <Typography variant="h5">
           { effect.type }
         </Typography>
 
         <VectorInput targetVal = { effect.parameter } updateParent = { updateParent }/>
-        
+
       </CardContent>
 
       <CardActions>
-        <Button onClick = { onClickRemoveButton } size = "small"> REMOVE </Button>
+        <Stack spacing = { 2 }>
+          <Chip onDelete = { onClickRemoveButton } label = "Delete" variant = "outlined"  color = "warning"/>
+        </Stack>
       </CardActions>
 
     </Card>

@@ -23,7 +23,6 @@ export const VectorInput: React.FC<Props> = ({targetVal, updateParent }) => {
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
 
   // ___ use effect ___ ___ ___ ___ ___
-  useEffect( () => { console.log(sampleState) }, [ sampleState ] );
 
   // ___ event handler ___ ___ ___ ___ ___
   const handleChangeX = (val: number) => {
@@ -42,23 +41,20 @@ export const VectorInput: React.FC<Props> = ({targetVal, updateParent }) => {
   }
 
   // ___ method ___ ___ ___ ___ ___
-  const test = () => {
-    console.log('test');
-  }
   
   return (
     <Grid container spacing = { 2 }>
 
       <Grid item xs = { 12 } md = { 4 } >
-        <NumberInput targetVal = { targetVal.x } step = { 0.01 } onChange = { handleChangeX } />
+        <NumberInput targetVal = { targetVal.x } onChange = { handleChangeX } label = "X" />
       </Grid>
 
       <Grid item xs = { 12 } md = { 4 } >
-        <NumberInput targetVal = { targetVal.y } step = { 0.01 } onChange = { handleChangeY } />
+        <NumberInput targetVal = { targetVal.y } onChange = { handleChangeY } label = "Y"/>
       </Grid>
 
       <Grid item xs = { 12 } md = { 4 } >
-        <NumberInput targetVal = { targetVal.z } step = { 0.01 } onChange = { handleChangeZ } />
+        <NumberInput targetVal = { targetVal.z } onChange = { handleChangeZ } label = "Z"/>
       </Grid>
     </Grid>
   );

@@ -63,7 +63,7 @@ export const TDModelEditor : React.FC<Props> = ({ tdModel, updateParent }) => {
 
       {/** EffectのProperty編集用UI */}
       <Grid item container xs = { 12 } >
-        <Grid  container spacing = { 2 } >
+        <Grid container spacing = { 6 } >
           { tdModel.effectsList.map( (effect, index) => {
             const editor  = <EffectEditor effect = { effect } updateParent = { updateParent } removeEffect = { removeEffect } />;
             const key     = tdModel.uid + effect.uid + index;
@@ -72,7 +72,9 @@ export const TDModelEditor : React.FC<Props> = ({ tdModel, updateParent }) => {
 
         </Grid>
       </Grid>
+
     </Grid>
+
 
   );
   
