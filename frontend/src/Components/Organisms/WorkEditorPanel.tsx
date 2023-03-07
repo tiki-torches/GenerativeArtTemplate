@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Grid from '@mui/material/Grid';
+import Chip from '@mui/material/Chip';
 import { TDModelUI, WorkModelUI } from "../../Utils/WorkComponentsUI";
 import { TDModelEditor } from "../Molecules/TDModelEditorChildren/TDModelEditor";
 import KeyGenerator from "../../Utils/KeyGenerator";
@@ -54,11 +55,11 @@ export const WorkEditorPanel: React.FC<Props> = ({ workModelUI, updateParent, In
     <Grid container spacing = { 2 }>
 
       <Grid item xs = { 12 }>
-        <button onClick = { onClickInitializeButton }> INITIALIZE WORK </button>
+        <Chip onClick = { onClickInitializeButton } label = 'INITIALIZE WORK' variant = "outlined" color = "warning"/>
       </Grid>
 
       <Grid item xs = { 12 }>
-        <button onClick = { onClickCreateButton }> ADD SAMPLE TDMODEL </button>
+        <Chip onClick = { onClickCreateButton } label = 'ADD SAMPLE TDMODEL' variant = "outlined"/>
       </Grid>
 
       {/** TDModelの一覧を表示 */}

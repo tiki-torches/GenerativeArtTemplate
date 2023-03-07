@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import EffectUIFactory from "../../../Utils/Factories/EffectUIFactory";
 import { EffectUIType } from "../../../Utils/Types";
@@ -71,7 +71,7 @@ export const EffectAdder: React.FC<Props> = ({ targetEffects, updateParent }) =>
 
     <div>
 
-      <Button onClick = { openModal } variant="outlined" size = "small"> ADD EFFECT </Button>
+      <Chip onClick = { openModal } label = 'ADD EFFECT' variant = "outlined"/>
 
       <Modal open = { isModalOpened } onClose = { closeModal }>
 
