@@ -63,16 +63,13 @@ export class EffectUI{
     // メタデータ
     uid     : number;
     type    : EffectUIType;
-    priority: number;
-    // !!! TODO: priorityの設定はグローバル管理に変更すること !!!
   
     // Effect適用時に用いるパラメータ
     parameter  : EffectUIParameter;
 
-    constructor(uid: number, type: EffectUIType, priority: number, parameter: EffectUIParameter){
+    constructor(uid: number, type: EffectUIType, parameter: EffectUIParameter){
       this.uid = uid;
       this.type = type;
-      this.priority = priority;
       this.parameter = parameter;
     }
 }

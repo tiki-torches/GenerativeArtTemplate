@@ -21,13 +21,15 @@ export interface WorkModelInterface{
 
 export interface EffectInterface{
 
-  // メタデータ
+  /** メタデータ */
   uid     : number;
   type    : EffectType;
-  priority: number;       // Effectの適用順位（値が大きいほど優先度が高い）
-  // !!! TODO: priorityの設定はグローバル管理に変更すること !!!
 
-  // Effect適用時に用いるパラメータ
+  // priorityは値が小さいほど優先度が低い
+  // 値が小さいほどEffect適用時に先に実行される つまり後に実行されるEffectに上書きされる可能性がある
+  priority: number;
+
+  /** Effect適用時に用いるパラメータ */
   parameter  : EffectParameter;
 
   /**

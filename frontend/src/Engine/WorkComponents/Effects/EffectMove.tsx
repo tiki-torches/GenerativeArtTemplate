@@ -1,3 +1,4 @@
+import EFFECT_DICTIONARY from "../../Global/EffectDictionary";
 import { EffectInterface } from "../InterfacesAndTypes/Interfaces";
 import { EffectParameter, EffectType, TDModelType } from "../InterfacesAndTypes/Types";
 import TDModelProperty from "../TDModels/TDModelProperty";
@@ -9,8 +10,8 @@ class EffectMove implements EffectInterface{
 
   // メタデータ
   uid     : number;
-  type    : EffectType  = "MOVE";
-  priority: number      = 20;
+  type    : EffectType = "MOVE";
+  priority: number;
 
   // Effect適用時に用いるパラメータ
   parameter  : EffectParameter;
@@ -18,6 +19,8 @@ class EffectMove implements EffectInterface{
   constructor(uid: number, parameter: EffectParameter){
     this.uid = uid;
     this.parameter = parameter;
+    const dictItem = EFFECT_DICTIONARY.find( (item) => { return item.type == this.type } );
+    this.priority = dictItem? dictItem.priority: 0;
   }
   
   /**

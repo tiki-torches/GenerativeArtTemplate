@@ -19,7 +19,7 @@ class EffectUIFactory{
         param = { x: 0, y: 0, z: 0 };
     }
 
-    const effect: EffectUI = new EffectUI(uid, type, 1, param);
+    const effect: EffectUI = new EffectUI(uid, type, param);
 
     return effect
   }
