@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { WorkPlayerInterface } from "../InterfacesAndTypes/Interfaces";
+import { EffectInterface, WorkPlayerInterface } from "../InterfacesAndTypes/Interfaces";
 import TDModelForTHREE from "../TDModels/TDModelForTHREE";
 
 /**
@@ -65,6 +65,9 @@ class WorkPlayerForTHREE implements WorkPlayerInterface{
     // 再生中でない場合は再生処理を実行する
     }else{
 
+      // TDModelを再生準備
+      this.readyTDModels(tdModels);
+
       // Sceneを初期化
       this.initializeScene(this.scene, tdModels);
   
@@ -119,6 +122,19 @@ class WorkPlayerForTHREE implements WorkPlayerInterface{
     // Sceneに3Dオブジェクトを登録
     tdModels.forEach( (tdModel) => { scene.add(tdModel.tdObject) });
 
+  }
+
+  /**
+   * TDModelを再生可能な状態に更新するメソッド
+   * @param tdModels 
+   */
+  readyTDModels(tdModels: Array<TDModelForTHREE>): void{
+    // 各TDModelのEffectをprorityの順（昇順）に従って並び替える
+    const compare = (effectA: EffectInterface, effectB: EffectInterface) => { return effectA.priority - effectB.priority }
+    tdModels.forEach( (tdModel) => {
+      tdModel.effectsList.sort(compare);
+    })
+    console.log(tdModels);
   }
 
   /**

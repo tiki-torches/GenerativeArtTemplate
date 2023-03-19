@@ -64,7 +64,6 @@ export interface TDModelInterface{
    */
   calcPropEffectsApplied(property: TDModelProperty, effectsList: Array<EffectInterface>): TDModelProperty;
 
-
   /**
    * 実際にレンダリングの対象となる3Dモデルデータの表示情報（位置・色など）を更新するメソッド
    * @param tdObject 
@@ -107,5 +106,11 @@ export interface WorkPlayerInterface{
    * 作品の再生を停止（中断）するメソッド
    */
   stop(): void;
+
+  /**
+   * TDModelを再生可能な状態に更新するメソッド
+   * @param tdModels 
+   */
+  readyTDModels(tdModels: Array<TDModelInterface>): void;
 
 }
