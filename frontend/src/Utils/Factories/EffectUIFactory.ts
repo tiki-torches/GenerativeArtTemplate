@@ -13,6 +13,8 @@ class EffectUIFactory{
         break;
       case "MOVE":
         param = { x: 0, y: 0, z: 0 };
+      case "REFLECT":
+        param = { x: 0, y: 0, z: 0 };
       default:
         param = { x: 0, y: 0, z: 0 };
     }

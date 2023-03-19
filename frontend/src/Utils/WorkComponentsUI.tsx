@@ -46,12 +46,14 @@ class TDModelPropertyUI{
  vector  : VectorUI;
  rotation: VectorUI;
  color   : ColorUI;
+ vectorReversal: { x: 1|-1, y: 1|-1, z: 1|-1 };
 
  constructor(){
    this.position = { x: 0, y: 0, z: 0 };
    this.vector   = { x: 0, y: 0, z: 0 };
    this.rotation = { x: 0, y: 0, z: 0 };
    this.color    = { r: 255, g: 255, b: 255 };
+   this.vectorReversal = { x: 1, y: 1, z: 1 };
  }
 
 }

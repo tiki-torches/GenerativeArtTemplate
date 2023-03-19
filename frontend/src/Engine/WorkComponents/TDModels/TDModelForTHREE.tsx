@@ -31,7 +31,6 @@ class TDModelForTHREE implements TDModelInterface{
     this.property     = new TDModelProperty();
     this.effectsList  = [];
   }
-
   
   /**
    * Effectを適用した後のPropertyを算出するメソッド

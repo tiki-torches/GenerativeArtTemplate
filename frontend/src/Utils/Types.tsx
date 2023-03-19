@@ -5,7 +5,7 @@
  * */
 
 // Effect
-export type EffectUIType      = "ROLL" | "MOVE";
+export type EffectUIType      = "ROLL" | "MOVE" | "REFLECT";
 export type EffectUIParameter = { x: number, y: number, z: number };
 
 // TDModel

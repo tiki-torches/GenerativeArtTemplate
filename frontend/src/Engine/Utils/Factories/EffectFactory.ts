@@ -1,5 +1,6 @@
 import EffectMove from "../../../Engine/WorkComponents/Effects/EffectMove";
 import EffectRoll from "../../../Engine/WorkComponents/Effects/EffectRoll";
+import EffectReflect from "../../../Engine/WorkComponents/Effects/EffectReflect";
 import { EffectInterface } from "../../WorkComponents/InterfacesAndTypes/Interfaces";
 import { EffectParameter, EffectType } from "../../WorkComponents/InterfacesAndTypes/Types";
 
@@ -12,12 +13,16 @@ class EffectFactory{
     // typeに応じたEffectを生成する
     switch(type){
 
-      case "ROLL":
+      case 'ROLL':
         effect = new EffectRoll(uid, parm);
         break;
 
-      case "MOVE":
+      case 'MOVE':
         effect = new EffectMove(uid, parm);
+        break;
+
+      case 'REFLECT':
+        effect = new EffectReflect(uid, parm);
         break;
 
       default:

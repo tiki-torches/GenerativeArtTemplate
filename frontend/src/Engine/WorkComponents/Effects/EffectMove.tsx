@@ -30,9 +30,9 @@ class EffectMove implements EffectInterface{
     const WEIGHT = 0.001;
 
     const calcuatedProp: TDModelProperty = { ...property };
-    calcuatedProp.position.x = calcuatedProp.position.x + parameter.x * WEIGHT;
-    calcuatedProp.position.y = calcuatedProp.position.y + parameter.y * WEIGHT;
-    calcuatedProp.position.z = calcuatedProp.position.z + parameter.z * WEIGHT;
+    calcuatedProp.vector.x = parameter.x * WEIGHT;
+    calcuatedProp.vector.y = parameter.y * WEIGHT;
+    calcuatedProp.vector.z = parameter.z * WEIGHT;
 
     return calcuatedProp
 

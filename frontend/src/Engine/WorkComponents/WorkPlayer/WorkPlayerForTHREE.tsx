@@ -128,9 +128,16 @@ class WorkPlayerForTHREE implements WorkPlayerInterface{
    */
   applyEffect(tdModel: TDModelForTHREE){
 
-    // Effect適用後のPropを算出し、TDModelに反映
-    const propEffectsApplied  = tdModel.calcPropEffectsApplied(tdModel.property, tdModel.effectsList);
-    tdModel.property          = propEffectsApplied;
+    // Effect適用後のProp（PropEffectsApplied）を算出
+    const pea = tdModel.calcPropEffectsApplied(tdModel.property, tdModel.effectsList);
+
+    // 移動ベクトルをもとに表示位置を決定
+    pea.position.x = pea.position.x + pea.vectorReversal.x * pea.vector.x;
+    pea.position.y = pea.position.y + pea.vectorReversal.y * pea.vector.y;
+    pea.position.z = pea.position.z + pea.vectorReversal.z * pea.vector.z;
+
+    // TDModelに反映
+    tdModel.property = pea;
 
     // レンダリング対象の3Dオブジェクトの表示情報（位置・色 など）を更新
     tdModel.updateTDObject(tdModel.tdObject, tdModel.property);

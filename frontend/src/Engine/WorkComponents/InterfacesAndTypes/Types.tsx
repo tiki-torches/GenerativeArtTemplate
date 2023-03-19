@@ -1,9 +1,9 @@
 // Effect
-export type EffectType      = "ROLL" | "MOVE";
+export type EffectType      = 'ROLL' | 'MOVE' | 'REFLECT';
 export type EffectParameter = { x: number, y: number, z: number };
 
 // TDModel
-export type TDModelType = "CUBE" | "BALL";
+export type TDModelType = 'CUBE' | 'BALL';
 
 // General
 export type Vector      = { x: number, y: number, z: number }
