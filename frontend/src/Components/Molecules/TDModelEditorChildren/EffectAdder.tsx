@@ -7,7 +7,9 @@ import Modal from '@mui/material/Modal';
 import EffectUIFactory from "../../../Utils/Factories/EffectUIFactory";
 import { EffectUIType } from "../../../Utils/Types";
 import { EffectUI } from "../../../Utils/WorkComponentsUI";
+import EffectChoice from "./EffectChoice";
 import EffectExplanator from "./EffectExplanator";
+import { DictItem, EFFECT_DICTIONARY } from "../../../Global/Dictionaries/EffectDictionary";
 
 /**
  * Outline	: 指定されたEffectUIを生成するComponent
@@ -15,11 +17,6 @@ import EffectExplanator from "./EffectExplanator";
  *            - 生成したEffectUIをPropにセットする
  * View			: - XXX
  */
-
-
-const DICT: Array<EffectUIType> = [
-  "ROLL", "MOVE", "REFLECT"
-]
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -32,7 +29,22 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-  overflowY: "scroll"
+};
+
+const style2 = {
+  height: '50%',
+  width: '100%',
+};
+
+const style3 = {
+  height: '40%',
+  width: '100%',
+  overflowY: "scroll",
+};
+
+const style4 = {
+  height: '10%',
+  width: '100%',
 };
 
 // Type Declaration of Props
@@ -45,25 +57,28 @@ export const EffectAdder: React.FC<Props> = ({ targetEffects, updateParent }) =>
 
   // ___ state ___ ___ ___ ___ ___
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
-  const [ isModalOpened, setIsModalOpened ] = useState(false);
+  const [ targetType, setTargetType ] = useState<EffectUIType>("MOVE");
+  const [ isModalOpened, setIsModalOpened ] = useState<boolean>(false);
 
   // ___ use effect ___ ___ ___ ___ ___
   // useEffect( () => { console.log(sampleState) }, [ sampleState ] );
 
   // ___ event handler ___ ___ ___ ___ ___
-  const onClickEffectExplanator = (target: EffectUIType) => {
+  const onClickEffectChoice = (target: EffectUIType) => {
+    setTargetType(target);
+    updateParent();
+  }
+
+  const onClickAddButton = () => {
     // EffectUIを生成
     const uid: number = targetEffects.length + 1;   // !!! WIP !!!
-    const newEffect: EffectUI = EffectUIFactory.generate(uid, target);
+    const newEffect: EffectUI = EffectUIFactory.generate(uid, targetType);
     // EffectUIをセットし更新
     targetEffects.push(newEffect);
     updateParent();
   }
 
   // ___ method ___ ___ ___ ___ ___
-  const test = () => {
-    console.log('test');
-  }
   const openModal   = () => setIsModalOpened(true);
   const closeModal  = () => setIsModalOpened(false);
 
@@ -77,22 +92,28 @@ export const EffectAdder: React.FC<Props> = ({ targetEffects, updateParent }) =>
 
         <Box sx = { style }>
 
-          <Grid container spacing = { 2 }>
-
-            <Grid container item spacing = { 2 } xs = { 12 }>
-
+          <Box sx = { style2 }>
+            <EffectExplanator target = { targetType } />
+          </Box>
+          
+          <Box sx = { style3 }>
+            <Grid container spacing = { 2 }>
               {/** EffctTypeの選択肢 */}
-              { DICT.map( (effectType: EffectUIType) => {
+              { EFFECT_DICTIONARY.map( (item: DictItem) => {
+
+                const isSelected = (item.type === targetType)? true: false
                 return (
-                  <Grid key = { effectType } item xs = { 12 } md = { 3 }>
-                    <EffectExplanator effectType = { effectType } onClick = { onClickEffectExplanator }/>
+                  <Grid key = { item.type } item xs = { 12 } md = { 3 }>
+                    <EffectChoice effectType = { item.type } isSelected = { isSelected } onClick = { onClickEffectChoice }/>
                   </Grid>
                 )
               })}
-
             </Grid>
+          </Box>
 
-          </Grid>
+          <Box sx = { style4 }>
+            <Chip onClick = { onClickAddButton } label = 'ADD EFFECT' variant = "outlined"/>
+          </Box>
 
         </Box>
 

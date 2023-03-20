@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Grid from '@mui/material/Grid';
 import { EffectUIType } from "../../../Utils/Types";
 import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardMedia from '@mui/material/CardMedia';
+import { CardActionArea } from '@mui/material';
+import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { EFFECT_DICTIONARY } from "../../../Global/Dictionaries/EffectDictionary";
+import CheckIcon from '@mui/icons-material/Check';
 
 /**
  * Outline	: XXXするComponent
@@ -18,10 +16,12 @@ import { EFFECT_DICTIONARY } from "../../../Global/Dictionaries/EffectDictionary
 
 // Type Declaration of Props
 type Props = {
-  target: EffectUIType
+  effectType  : EffectUIType;
+  isSelected  : boolean;
+  onClick     : any;
 }
 
-export const EffectExplanator: React.FC<Props> = ({ target }) => {
+export const EffectChoice: React.FC<Props> = ({ effectType, isSelected, onClick　}) => {
 
   // ___ state ___ ___ ___ ___ ___
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
@@ -39,28 +39,32 @@ export const EffectExplanator: React.FC<Props> = ({ target }) => {
   const test = () => {
     console.log('test');
   }
-
-  const getImageSrc = (target: EffectUIType): string | undefined => {
-    const result = EFFECT_DICTIONARY.find( (item) => { return item.type === target  } );
-    const src = result?.img;
-    return src
+  
+  const onClickCard = () => {
+    onClick(effectType);
   }
 
   return (
+    <Card onClick = { onClickCard } variant = "outlined" >
 
-    <Container maxWidth = 'sm'>
-      {/** muiのGridブレークポイントsmが600ptと同値 */}
-      <Card sx = {{ maxWidth: 600 }}>
-        <CardMedia
-          component = "img"
-          height    = "200"
-          image     = { getImageSrc(target) }
-          alt       = { target }
-        />
-      </Card>
-    </Container>
+      <CardActionArea>
 
+        <Box sx = {{ display: 'flex' }}>
+
+          <CardContent style = {{ width: 10 }}>
+            { isSelected? <CheckIcon/>: undefined }
+          </CardContent>
+          
+          <CardContent>
+            <Typography> { effectType } </Typography>
+          </CardContent>
+
+        </Box>
+
+      </CardActionArea>
+
+    </Card>
   );
 };
 
-export default EffectExplanator 
+export default EffectChoice 
