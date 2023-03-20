@@ -6,11 +6,11 @@ import TDModelProperty from "../TDModels/TDModelProperty";
 /**
  * 
  */
-class EffectRoll implements EffectInterface{
+class EffectMove implements EffectInterface{
 
   // メタデータ
   uid     : number;
-  type    : EffectType = "ROLL";
+  type    : EffectType = "MOVE";
   priority: number;
 
   // Effect適用時に用いるパラメータ
@@ -33,13 +33,14 @@ class EffectRoll implements EffectInterface{
     const WEIGHT = 0.001;
 
     const calcuatedProp: TDModelProperty = { ...property };
-    calcuatedProp.rotation.x = calcuatedProp.rotation.x + parameter.x * WEIGHT;
-    calcuatedProp.rotation.y = calcuatedProp.rotation.y + parameter.y * WEIGHT;
-    calcuatedProp.rotation.z = calcuatedProp.rotation.z + parameter.z * WEIGHT;
+    calcuatedProp.vector.x = parameter.x * WEIGHT;
+    calcuatedProp.vector.y = parameter.y * WEIGHT;
+    calcuatedProp.vector.z = parameter.z * WEIGHT;
+
     return calcuatedProp
 
   }
 
 }
 
-export default EffectRoll
+export default EffectMove

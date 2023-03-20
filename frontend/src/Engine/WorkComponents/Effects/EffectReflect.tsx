@@ -6,11 +6,11 @@ import TDModelProperty from "../TDModels/TDModelProperty";
 /**
  * 
  */
-class EffectRoll implements EffectInterface{
+class EffectReflect implements EffectInterface{
 
   // メタデータ
   uid     : number;
-  type    : EffectType = "ROLL";
+  type    : EffectType = 'REFLECT';
   priority: number;
 
   // Effect適用時に用いるパラメータ
@@ -30,16 +30,23 @@ class EffectRoll implements EffectInterface{
    */
   calc(property: TDModelProperty, parameter: EffectParameter): TDModelProperty{
 
-    const WEIGHT = 0.001;
-
     const calcuatedProp: TDModelProperty = { ...property };
-    calcuatedProp.rotation.x = calcuatedProp.rotation.x + parameter.x * WEIGHT;
-    calcuatedProp.rotation.y = calcuatedProp.rotation.y + parameter.y * WEIGHT;
-    calcuatedProp.rotation.z = calcuatedProp.rotation.z + parameter.z * WEIGHT;
+
+    // 3Dオブジェクトが移動後に指定の領域を超える場合は、ベクトルを反転させる
+    if( Math.abs(property.position.x + property.vector.x) > Math.abs(parameter.x) ){
+      calcuatedProp.vectorReversal.x = (calcuatedProp.vectorReversal.x  == 1)? -1: 1;
+    }
+    if( Math.abs(property.position.y + property.vector.y) > Math.abs(parameter.y) ){
+      calcuatedProp.vectorReversal.y = (calcuatedProp.vectorReversal.y  == 1)? -1: 1;
+    }
+    if( Math.abs(property.position.z + property.vector.z) > Math.abs(parameter.z) ){
+      calcuatedProp.vectorReversal.z = (calcuatedProp.vectorReversal.z  == 1)? -1: 1;
+    }
+
     return calcuatedProp
 
   }
 
 }
 
-export default EffectRoll
+export default EffectReflect

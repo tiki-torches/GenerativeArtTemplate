@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 import { WorkEditorPanel } from "../Organisms/WorkEditorPanel"
 import { WorkPlayerPanel } from "../Organisms/WorkPlayerPanel"
 import { TDModelUI, WorkModelUI } from "../../Utils/WorkComponentsUI";
@@ -44,7 +45,7 @@ export const EditorPage : React.FC <Props> = ({ sampleProp }) => {
     setWorkModelUI(clone);
   }
 
-  const InitializeWork = () => {
+  const initializeWork = () => {
     const getRandom = (max: number): number => { return Math.floor(Math.random() * max); }
     const uid: number = getRandom(100);
     const workModel: WorkModelUI = new WorkModelUI(uid);
@@ -63,21 +64,17 @@ export const EditorPage : React.FC <Props> = ({ sampleProp }) => {
       <Grid container>
 
         <Grid item xs = { 12 }>
-          <p> Work ID: { JSON.stringify(workModelUI.uid) } </p>
-        </Grid>
-
-        <Grid item xs = { 12 }>
           {/** 編集中の場合は編集パネルを表示する 編集中でない場合（再生中の場合）は再生パネルを表示する */}
           { isEditing? 
-            <WorkEditorPanel workModelUI = { workModelUI } updateParent = { updateWorkModelUI } InitializeWork = { InitializeWork } />:
+            <WorkEditorPanel workModelUI = { workModelUI } updateParent = { updateWorkModelUI } InitializeWork = { initializeWork } />:
             <WorkPlayerPanel workJSON = { converUIintoJSON(workModelUI) } />
           }
         </Grid>
 
         <Grid item xs = { 12 }>
           { isEditing?
-            <button onClick = { onClickShowWorkViewerButton }> Play The Work </button>:
-            <button onClick = { onClickShowWorkEditorButton }> Edit The Work </button>
+            <Button onClick = { onClickShowWorkViewerButton } variant="outlined" size = "small"> Play The Work </Button>:
+            <Button onClick = { onClickShowWorkEditorButton } variant="outlined" size = "small"> Edit The Work </Button>
           }
         </Grid>
 

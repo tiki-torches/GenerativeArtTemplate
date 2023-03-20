@@ -1,4 +1,4 @@
-import { TDModelInterface, WorkPlayerInterface } from "../InterfacesAndTypes/Interfaces";
+import { EffectInterface, TDModelInterface, WorkPlayerInterface } from "../InterfacesAndTypes/Interfaces";
 import TDModelForRAW from "../TDModels/TDModelForRAW";
 import TDModelProperty from "../TDModels/TDModelProperty";
 
@@ -23,7 +23,6 @@ class WorkPlayerForRAW implements WorkPlayerInterface{
     this.isPlaying    = false;
   }
 
-
   /**
    * 作品の再生を開始（再開）するメソッド
    * 注意: tdModelは不可逆的な変更を加えられる 変更前のtdModelが必要な場合はtdModel生成素となるJSONから生成すること
@@ -33,6 +32,8 @@ class WorkPlayerForRAW implements WorkPlayerInterface{
    * @param tdModel 
    */
   play(tdModels: Array<TDModelForRAW>): void{
+
+    this.readyTDModels(tdModels);
 
     // ループ処理を定義
     const tick = () => {
@@ -71,6 +72,18 @@ class WorkPlayerForRAW implements WorkPlayerInterface{
    */
   stop(): void{
     cancelAnimationFrame(this.reqAnmID);
+  }
+
+  /**
+   * TDModelを再生可能な状態に更新するメソッド
+   * @param tdModels 
+   */
+  readyTDModels(tdModels: Array<TDModelForRAW>): void{
+    // 各TDModelのEffectをprorityの順（昇順）に従って並び替える
+    const compare = (effectA: EffectInterface, effectB: EffectInterface) => { return effectA.priority - effectB.priority }
+    tdModels.forEach( (tdModel) => {
+      tdModel.effectsList.sort(compare);
+    })
   }
 
 }

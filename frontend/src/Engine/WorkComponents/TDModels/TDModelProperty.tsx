@@ -10,12 +10,14 @@ class TDModelProperty {
   vector  : Vector;
   rotation: Vector;
   color   : Color;
+  vectorReversal: { x: 1|-1, y: 1|-1, z: 1|-1 };
 
   constructor(){
     this.position = { x: 0, y: 0, z: 0 };
     this.vector   = { x: 0, y: 0, z: 0 };
     this.rotation = { x: 0, y: 0, z: 0 };
     this.color    = { r: 0, g: 0, b: 0 };
+    this.vectorReversal = { x: 1, y: 1, z: 1 };
   }
 
 }

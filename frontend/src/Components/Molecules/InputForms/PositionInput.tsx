@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Grid from '@mui/material/Grid';
-import NumberInput from "../../../Components/Atoms/NumberInput";
+import NumberInput from "../../Atoms/NumberInput";
 import { VectorUI } from "../../../Utils/Types";
 
-const inputProps = { step: "10" };
+const inputProps = { step: "5" };
 
 // Type Declaration of Props
 type Props = {
-  targetVal     : VectorUI;
-  updateParent  : any;
+  sampleProp ?: any;
+  targetVal: VectorUI;
+  updateParent: any;
 }
 
 /**
@@ -17,7 +18,7 @@ type Props = {
  *            - 親ComponentからCCCを受け取り、DDDとしたものを子Componentに渡す
  * View			: - KKKをリスト表示する
  */
-export const VectorInput: React.FC<Props> = ({targetVal, updateParent }) => {
+export const PositionInput: React.FC<Props> = ({targetVal, updateParent }) => {
 
   // ___ state ___ ___ ___ ___ ___
   const [ sampleState, setSampleState ] = useState<string>('This is SampleState');
@@ -46,7 +47,7 @@ export const VectorInput: React.FC<Props> = ({targetVal, updateParent }) => {
     <Grid container spacing = { 2 }>
 
       <Grid item xs = { 12 } md = { 4 } >
-        <NumberInput targetVal = { targetVal.x } onChange = { handleChangeX } label = "X" inputProps = { inputProps } />
+        <NumberInput targetVal = { targetVal.x } onChange = { handleChangeX } label = "X" inputProps = { inputProps }/>
       </Grid>
 
       <Grid item xs = { 12 } md = { 4 } >
@@ -61,4 +62,4 @@ export const VectorInput: React.FC<Props> = ({targetVal, updateParent }) => {
   );
 };
 
-export default VectorInput
+export default PositionInput

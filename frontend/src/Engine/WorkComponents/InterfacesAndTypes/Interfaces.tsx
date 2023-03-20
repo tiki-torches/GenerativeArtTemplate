@@ -21,13 +21,15 @@ export interface WorkModelInterface{
 
 export interface EffectInterface{
 
-  // メタデータ
+  /** メタデータ */
   uid     : number;
   type    : EffectType;
-  priority: number;       // Effectの適用順位（値が大きいほど優先度が高い）
-  // !!! TODO: priorityの設定はグローバル管理に変更すること !!!
 
-  // Effect適用時に用いるパラメータ
+  // priorityは値が小さいほど優先度が低い
+  // 値が小さいほどEffect適用時に先に実行される つまり後に実行されるEffectに上書きされる可能性がある
+  priority: number;
+
+  /** Effect適用時に用いるパラメータ */
   parameter  : EffectParameter;
 
   /**
@@ -61,7 +63,6 @@ export interface TDModelInterface{
    * @param property 
    */
   calcPropEffectsApplied(property: TDModelProperty, effectsList: Array<EffectInterface>): TDModelProperty;
-
 
   /**
    * 実際にレンダリングの対象となる3Dモデルデータの表示情報（位置・色など）を更新するメソッド
@@ -105,5 +106,11 @@ export interface WorkPlayerInterface{
    * 作品の再生を停止（中断）するメソッド
    */
   stop(): void;
+
+  /**
+   * TDModelを再生可能な状態に更新するメソッド
+   * @param tdModels 
+   */
+  readyTDModels(tdModels: Array<TDModelInterface>): void;
 
 }

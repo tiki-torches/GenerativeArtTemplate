@@ -46,12 +46,14 @@ class TDModelPropertyUI{
  vector  : VectorUI;
  rotation: VectorUI;
  color   : ColorUI;
+ vectorReversal: { x: 1|-1, y: 1|-1, z: 1|-1 };
 
  constructor(){
    this.position = { x: 0, y: 0, z: 0 };
    this.vector   = { x: 0, y: 0, z: 0 };
    this.rotation = { x: 0, y: 0, z: 0 };
-   this.color    = { r: 0, g: 0, b: 0 };
+   this.color    = { r: 255, g: 255, b: 255 };
+   this.vectorReversal = { x: 1, y: 1, z: 1 };
  }
 
 }
@@ -61,16 +63,13 @@ export class EffectUI{
     // メタデータ
     uid     : number;
     type    : EffectUIType;
-    priority: number;
-    // !!! TODO: priorityの設定はグローバル管理に変更すること !!!
   
     // Effect適用時に用いるパラメータ
     parameter  : EffectUIParameter;
 
-    constructor(uid: number, type: EffectUIType, priority: number, parameter: EffectUIParameter){
+    constructor(uid: number, type: EffectUIType, parameter: EffectUIParameter){
       this.uid = uid;
       this.type = type;
-      this.priority = priority;
       this.parameter = parameter;
     }
 }

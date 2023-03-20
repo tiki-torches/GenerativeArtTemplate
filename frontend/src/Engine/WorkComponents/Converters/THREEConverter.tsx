@@ -7,7 +7,7 @@ class THREEConverter implements TDModelConverterInterface{
 
   convert(tdModelForRAW: TDModelForRAW): TDModelForTHREE{
     
-    // RAW形式のTDMModelからTHREE形式のTDMModelを生成
+    // RAW形式のTDMModelからTHREE形式のTDModelを生成
     // なお、内部的にはtype指定に応じたmeshを生成しセットしているのみ
     const modelForTHREE = TDModelForTHREEFactory.generateTDModel(tdModelForRAW.uid, tdModelForRAW.type);
 

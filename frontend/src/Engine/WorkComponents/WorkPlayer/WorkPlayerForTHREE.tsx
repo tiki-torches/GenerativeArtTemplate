@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { WorkPlayerInterface } from "../InterfacesAndTypes/Interfaces";
+import { EffectInterface, WorkPlayerInterface } from "../InterfacesAndTypes/Interfaces";
 import TDModelForTHREE from "../TDModels/TDModelForTHREE";
 
 /**
@@ -65,6 +65,9 @@ class WorkPlayerForTHREE implements WorkPlayerInterface{
     // 再生中でない場合は再生処理を実行する
     }else{
 
+      // TDModelを再生準備
+      this.readyTDModels(tdModels);
+
       // Sceneを初期化
       this.initializeScene(this.scene, tdModels);
   
@@ -122,15 +125,35 @@ class WorkPlayerForTHREE implements WorkPlayerInterface{
   }
 
   /**
+   * TDModelを再生可能な状態に更新するメソッド
+   * @param tdModels 
+   */
+  readyTDModels(tdModels: Array<TDModelForTHREE>): void{
+    // 各TDModelのEffectをprorityの順（昇順）に従って並び替える
+    const compare = (effectA: EffectInterface, effectB: EffectInterface) => { return effectA.priority - effectB.priority }
+    tdModels.forEach( (tdModel) => {
+      tdModel.effectsList.sort(compare);
+    })
+    console.log(tdModels);
+  }
+
+  /**
    * TDModelをEffect適用後の状態に更新するメソッド
    * 注意: TDModelは不可逆的な変更を加えられる
    * @param tdModel 
    */
   applyEffect(tdModel: TDModelForTHREE){
 
-    // Effect適用後のPropを算出し、TDModelに反映
-    const propEffectsApplied  = tdModel.calcPropEffectsApplied(tdModel.property, tdModel.effectsList);
-    tdModel.property          = propEffectsApplied;
+    // Effect適用後のProp（PropEffectsApplied）を算出
+    const pea = tdModel.calcPropEffectsApplied(tdModel.property, tdModel.effectsList);
+
+    // 移動ベクトルをもとに表示位置を決定
+    pea.position.x = pea.position.x + pea.vectorReversal.x * pea.vector.x;
+    pea.position.y = pea.position.y + pea.vectorReversal.y * pea.vector.y;
+    pea.position.z = pea.position.z + pea.vectorReversal.z * pea.vector.z;
+
+    // TDModelに反映
+    tdModel.property = pea;
 
     // レンダリング対象の3Dオブジェクトの表示情報（位置・色 など）を更新
     tdModel.updateTDObject(tdModel.tdObject, tdModel.property);
