@@ -1,21 +1,25 @@
 import * as THREE from 'three';
 import TDModelForTHREE from "../../WorkComponents/TDModels/TDModelForTHREE"
 import { TDModelType } from "../../WorkComponents/InterfacesAndTypes/Types";
+import TDMODEL_DICTIONARY from '../../../Engine/Global/TDModelDictionary';
 
 class TDModelForTHREEFactory{
 
   static generateTDModel(uid: number, type: TDModelType): TDModelForTHREE{
 
-    // TODO: typeに応じたmeshを生成するように変更する
+    const generateMesh = (type: TDModelType) => {
 
-    const generateMesh = () => {
-      const geometry  = new THREE.BoxGeometry(100, 100, 100);
+      // ジオメトリーを生成
+      let geoType = TDMODEL_DICTIONARY.find( (item) => item.type === type);     
+      if(geoType === undefined){ console.log('undefined tdmodel-type has been called. automatically assigned box type.') }
+      const geometry = geoType? new geoType.class(100, 100, 100): new THREE.BoxGeometry(100, 100, 100);
+
       const material  = new THREE.MeshMatcapMaterial({ color: 0xffffff });
       const mesh      = new THREE.Mesh(geometry, material);
       return mesh
     }
 
-    const mesh    = generateMesh();
+    const mesh    = generateMesh(type);
     const tdModel = new TDModelForTHREE(uid, type, mesh);
     
     return tdModel
@@ -23,6 +27,7 @@ class TDModelForTHREEFactory{
   }
 
 }
+
 
 
 export default TDModelForTHREEFactory
